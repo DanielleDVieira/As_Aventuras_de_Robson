@@ -32,7 +32,7 @@ public class WordsScript : MonoBehaviour
         atual = Words.Next();
 
         // Atualizando título com a palavra em inglês sorteada
-        textMesh.text = atual.Ingles;
+        textMesh.text = atual.Ingles.ToUpper();
 
         // Iterando por todas as letras da tradução da palavra
         // E instanciando um prefab para cada letra
