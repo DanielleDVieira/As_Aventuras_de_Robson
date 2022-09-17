@@ -32,7 +32,7 @@ public class WordsScript : MonoBehaviour
         atual = Words.Next();
 
         // Atualizando título com a palavra em inglês sorteada
-        textMesh.text = atual.Ingles.ToUpper();
+        textMesh.text = atual.Ingles;
 
         // Iterando por todas as letras da tradução da palavra
         // E instanciando um prefab para cada letra
@@ -48,7 +48,7 @@ public class WordsScript : MonoBehaviour
             // Nome do prefab
             prefab_gameObject.name = "Letra";
             TextMeshProUGUI txt = prefab_gameObject.GetComponentInChildren<TextMeshProUGUI>();
-            txt.text = atual.Portugues[i].ToString();
+            txt.text = atual.Portugues[i].ToString().ToUpper();
             // Colocando prefeb la lista de prefabs
             prefabs.Add(prefab_gameObject);
         }
