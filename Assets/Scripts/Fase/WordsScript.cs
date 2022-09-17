@@ -84,9 +84,10 @@ public class WordsScript : MonoBehaviour
             // Obtendo o componente filho
             TextMeshProUGUI conteudo = item.GetComponentInChildren<TextMeshProUGUI>();
             // Obtendo o conteúdo existente no componente filho
-            string sConteudo = conteudo.text;
+            string sConteudo = conteudo.text.ToLower();
+            Debug.Log("sConteudo: " + sConteudo + " - " + atual.Portugues[posLetraAtual].ToString());
             // Se não for a letra desejada, zere o collider, caso contrário, aumente-o
-            if (!sConteudo.Equals(atual.Portugues[posLetraAtual].ToString()))
+            if (!sConteudo.Equals(atual.Portugues[posLetraAtual].ToString().ToLower()))
             {
                 collider.size = new Vector2(0, 0);
             }
