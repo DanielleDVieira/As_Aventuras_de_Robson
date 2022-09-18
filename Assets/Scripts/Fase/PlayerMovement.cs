@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject DeathMenu;
     public GameObject LimiteInferior;
+    public Joystick Joystick;
 
     // Responsável pelo controle de pulo
     bool jump = false;
@@ -28,22 +29,33 @@ public class PlayerMovement : MonoBehaviour
     bool crouch = false;
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
         // O personagem deve morrer se cair para fora dos limites do mapa
-        if (controller.transform.position.y <= LimiteInferior.transform.position.y) {
+        if (controller.transform.position.y <= LimiteInferior.transform.position.y)
+        {
             DeathMenu.SetActive(true);
         }
 
         // Recebendo valor do input das teclas horizontais 
         // Pré-setado na unity: Horizontal = A e D
-        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+
+        if (Joystick.Horizontal == 0)
+        {
+            horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+        }
+        else
+        {
+            horizontalMove = Joystick.Horizontal * runSpeed;
+        }
 
         // Setando na variável da animação de corrida o valor absoluto do movimento horizontal
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
         // Recebendo valor do input da tecla jump
         // Pré-setado na unity: Jump = Espaço
-        if(Input.GetButtonDown("Jump")) { 
+        if (Input.GetButtonDown("Jump") || Joystick.Vertical >= 0.5)
+        {
             jump = true;
             // Setando na variável da animação de pulo o valor positivo quando clicarmos para pular    
             animator.SetBool("IsJumping", true);
@@ -51,26 +63,32 @@ public class PlayerMovement : MonoBehaviour
 
         // Recebendo valor do input da tecla crouch
         // Essa não é pré-setada na unity, mas basta copiar o preset do jump, e alterar a tecla
-        if(Input.GetButtonDown("Crouch")) {
+        if (Input.GetButtonDown("Crouch"))
+        {
             crouch = true;
-        } else if (Input.GetButtonUp("Crouch")){ 
+        }
+        else if (Input.GetButtonUp("Crouch"))
+        {
             crouch = false;
         }
     }
 
     // Função necessária para a animação
-    public void OnLanding() {
+    public void OnLanding()
+    {
         jump = false;
         animator.SetBool("IsJumping", false);
     }
 
     // Função necessária para a animação
-    public void OnCrouching(bool isCrouching){
+    public void OnCrouching(bool isCrouching)
+    {
         animator.SetBool("IsCrouching", isCrouching);
     }
 
     // Função que será executada em um tempo fixo (Fixed)
-    void FixedUpdate() {
-        controller.Move(horizontalMove * Time.fixedDeltaTime , crouch, jump);
+    void FixedUpdate()
+    {
+        controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
     }
 }
