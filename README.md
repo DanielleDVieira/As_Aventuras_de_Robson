@@ -9,4 +9,5 @@
 - Guilherme Quadros Werner
 - João Augusto dos Santos Silva
 - João Pedro Camargo dos Santos
+- Maria Eduarda Oliveira de Brito
 - Thiago de Campos Ribeiro Nolasco
