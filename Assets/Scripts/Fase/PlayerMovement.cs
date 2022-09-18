@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class PlayerMovement : MonoBehaviour
     // Resposável pela velocidade do movimento do usuário
     public float runSpeed = 40f;
 
+    public GameObject DeathMenu;
+    public GameObject LimiteInferior;
+
     // Responsável pelo controle de pulo
     bool jump = false;
     // Responsável pelo controle de agachar
@@ -25,6 +29,11 @@ public class PlayerMovement : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
+        // O personagem deve morrer se cair para fora dos limites do mapa
+        if (controller.transform.position.y <= LimiteInferior.transform.position.y) {
+            DeathMenu.SetActive(true);
+        }
+
         // Recebendo valor do input das teclas horizontais 
         // Pré-setado na unity: Horizontal = A e D
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
