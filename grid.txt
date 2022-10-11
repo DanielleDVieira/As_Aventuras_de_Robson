@@ -39,7 +39,7 @@ SetValue(1, 17, 0);
 SetValue(1, 18, 0);
 SetValue(1, 19, 0);
 SetValue(2, 0, 0);
-SetValue(2, 1, 1);
+SetValue(2, 1, 0);
 SetValue(2, 2, 0);
 SetValue(2, 3, 0);
 SetValue(2, 4, 0);

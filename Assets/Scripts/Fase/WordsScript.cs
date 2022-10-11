@@ -5,6 +5,7 @@ using TMPro;
 
 public class WordsScript : MonoBehaviour
 {
+    // Generator para pegar posições aleatórias para colocar as letras no cenário
     System.Random Generator;
     // Título (Receberá a palavra em inglês para ser traduzida)
     public TextMeshProUGUI textMesh;
@@ -14,6 +15,7 @@ public class WordsScript : MonoBehaviour
     public GameObject prefab;
     // Lista de todos Prefabs criados
     private List<GameObject> prefabs;
+    // Instanciando objeto grid
     private Grid grid;
 
     // Para saber qual é a Word "sorteada"
@@ -30,6 +32,7 @@ public class WordsScript : MonoBehaviour
         Words = new WordList();
         Words.Load();
         prefabs = new List<GameObject>();
+        // Criar grid
         grid = new Grid(38, 20, 1f, new Vector3(-19, -10));
 
         // Será uma palavra aleatória <
@@ -37,6 +40,8 @@ public class WordsScript : MonoBehaviour
 
         // Atualizando título com a palavra em inglês sorteada
         textMesh.text = atual.Ingles;
+
+        // Criar lista com as posições do grid que possuem valor 1
         List<Vector3> worldPos = getAxis();
         Vector3 posAleatoria;
 
@@ -44,10 +49,11 @@ public class WordsScript : MonoBehaviour
         // E instanciando um prefab para cada letra
         for (int i = 0; i < atual.Portugues.Length; i++)
         {
+            // Pegar posição aleatória da lista worldPos para setar as posições onde ficará as letras da palavra em português
             posAleatoria = worldPos[Generator.Next(worldPos.Count)];
+            // Setar as letras na posição aleatória
             GameObject prefab_gameObject = Instantiate(
                 prefab,
-                //TODO lembrar de arrumar a posição baseado na posição do vértice aleatório escolhido
                 (new Vector3(posAleatoria[0], posAleatoria[1], posAleatoria[2]) + new Vector3(1f, 1f) * .5f),
                 Quaternion.identity,
                 transform
@@ -119,10 +125,17 @@ public class WordsScript : MonoBehaviour
         ColliderSizeUpdate();
     }
 
+    /*
+        Função que retorna uma lista Vector3 que tem todas as posições da grid com valor 1
+    */
     private List<Vector3> getAxis(){
+        // Cria lista pos que guardará as posições que contem o valor 1 na grid
         List<Vector3> pos = new List<Vector3>();
+        // Percorre a matriz grid
         for(int i = 0; i < 38; i++){
             for(int j = 0; j <20; j++){
+                // Verifica se o valor daquela posição na grid é igual a 1 e se não é no eixo y igual a 6 e 2
+                // O eixo y 6 é onde nasce a IA, e o eixo y 2 é onde nasce o robson, assim não terá letras nestas plataformas
                 if(grid.GetValue(i,j) == 1 && j != 6 && j != 2){
                     pos.Add(grid.GetWorldPosition(i,j));
                 }
