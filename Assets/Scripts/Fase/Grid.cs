@@ -29,7 +29,7 @@ public class Grid
         gridArray = new int[width, height];
         debugTextArray = new TextMesh[width, height];
 
-        for (int x = 0; x < gridArray.GetLength(0); x++) {
+        /*for (int x = 0; x < gridArray.GetLength(0); x++) {
             for (int y = 0; y < gridArray.GetLength(1); y++) {
                 // Criar texto
                 debugTextArray[x, y] = UtilsClass.CreateWorldText(gridArray[x, y].ToString(), null, GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f, 5, Color.black, TextAnchor.MiddleCenter);
@@ -42,6 +42,7 @@ public class Grid
         // Desenhar linhas do topo e da lateral direita
         Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.black, 100f);
         Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.black, 100f);
+        */
 
         // Setar valor de cada quadrado na grid na mão, copiados do arquivo txt
         SetValue(0, 0, 0);
@@ -85,7 +86,7 @@ public class Grid
         SetValue(1, 18, 0);
         SetValue(1, 19, 0);
         SetValue(2, 0, 0);
-        SetValue(2, 1, 1);
+        SetValue(2, 1, 0);
         SetValue(2, 2, 0);
         SetValue(2, 3, 0);
         SetValue(2, 4, 0);
@@ -807,7 +808,7 @@ public class Grid
     }
 
 
-    private Vector3 GetWorldPosition(int x, int y) {
+    public Vector3 GetWorldPosition(int x, int y) {
         return new Vector3(x, y) * cellSize + originPosition;
     }
 
@@ -836,7 +837,7 @@ public class Grid
 
             // Alterar valores os setando manualmente 
             gridArray[x, y] = value;
-            debugTextArray[x, y].text = gridArray[x, y].ToString(); 
+            //debugTextArray[x, y].text = gridArray[x, y].ToString(); 
         }
     }
 
