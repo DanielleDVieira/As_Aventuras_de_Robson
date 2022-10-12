@@ -9,6 +9,8 @@ public class WordsScript : MonoBehaviour
     System.Random Generator;
     // Título (Receberá a palavra em inglês para ser traduzida)
     public TextMeshProUGUI textMesh;
+    // Letras coletadas pelo robson
+    public TextMeshProUGUI letrasRobson;
     // Lista de Palavras possíveis
     public WordList Words;
     // Prefab que será fabricado (Pefrab da letra)
@@ -41,16 +43,23 @@ public class WordsScript : MonoBehaviour
         // Atualizando título com a palavra em inglês sorteada
         textMesh.text = atual.Ingles;
 
+        // Iniciar o jogo com as letras coletadas pelo robson sem nada
+        letrasRobson.text = "";
+
         // Criar lista com as posições do grid que possuem valor 1
         List<Vector3> worldPos = getAxis();
         Vector3 posAleatoria;
+
+        // Lista com as posições das letras no mundo da palavra em portugues
+        List<Vector3> posicaoAleatoriaLetras = new List<Vector3>();
 
         // Iterando por todas as letras da tradução da palavra
         // E instanciando um prefab para cada letra
         for (int i = 0; i < atual.Portugues.Length; i++)
         {
             // Pegar posição aleatória da lista worldPos para setar as posições onde ficará as letras da palavra em português
-            posAleatoria = worldPos[Generator.Next(worldPos.Count)];
+            posAleatoria = verificaPosicaoAleatoria(worldPos, posicaoAleatoriaLetras, Generator);
+            posicaoAleatoriaLetras.Add(posAleatoria);
             // Setar as letras na posição aleatória
             GameObject prefab_gameObject = Instantiate(
                 prefab,
@@ -60,8 +69,13 @@ public class WordsScript : MonoBehaviour
             );
             // Nome do prefab
             prefab_gameObject.name = "Letra";
+            // Gambiarra do Guilherme das braba
+            var letterScript = prefab_gameObject.GetComponent<LetterScript>();
+            letterScript.word = this;
+            letterScript.posicao = i;
             TextMeshProUGUI txt = prefab_gameObject.GetComponentInChildren<TextMeshProUGUI>();
             txt.text = atual.Portugues[i].ToString().ToUpper();
+            letterScript.letra = txt.text;
             // Colocando prefeb la lista de prefabs
             prefabs.Add(prefab_gameObject);
         }
@@ -82,6 +96,37 @@ public class WordsScript : MonoBehaviour
             tamanhoAntigo = tamanhoAtual;
             RemoveCollectedLetter();
         }
+    }
+
+    /*
+        Função que garante que será gerado posições diferentes para colocar as letras no mundo
+    */
+    Vector3 verificaPosicaoAleatoria(List<Vector3> worldPos, List<Vector3> posicaoAleatoriaLetras, System.Random Generator) {
+        Vector3 posAleatoria = worldPos[Generator.Next(worldPos.Count)];
+        bool test = true;
+
+        while (test) {
+            if (isVector3(posAleatoria, posicaoAleatoriaLetras)) {
+                posAleatoria = worldPos[Generator.Next(worldPos.Count)];
+            } else {
+                test = false;
+            }
+        }
+        return posAleatoria;
+    }
+
+    /*
+        Função que verifica se já existe a posição no vetor de posições aleatórias das letras no mundo
+    */
+    bool isVector3(Vector3 posicion, List<Vector3> posicaoAleatoriaLetras) {
+        int quantPos = posicaoAleatoriaLetras.Count;
+
+        for(int i = 0; i < quantPos; i++) {
+            if (posicaoAleatoriaLetras[i] == posicion) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Macete para garantir que só será coletado as letras na ordem desejada
@@ -121,8 +166,30 @@ public class WordsScript : MonoBehaviour
             if (item == null) objetoRemovido = item;
         }
         prefabs.Remove(objetoRemovido);
+        // Atualizando as letras coletadas pelo robson
+        letrasRobson.text += atual.Portugues[posLetraAtual];
         posLetraAtual++;
         ColliderSizeUpdate();
+    }
+    
+    /*
+        Método para adicionar letra no placar do Robson
+        Os parâmetros posicao e letraAtual vem da classe LetterScript
+    */
+    public void adicionarLetraPlacarRobson (int posicao, string letraAtual) {
+        Debug.Log("letraAtual: " + letraAtual);
+        // Atualizando as letras coletadas pelo robson
+        letrasRobson.text += letraAtual;
+        // TODO deixar um espaço em branco no placar da IA
+    }
+
+    /*
+        Método para adicionar letra no placar da IA
+        Os parâmetros posicao e letraAtual vem da classe LetterScript
+    */
+    public void adicionarLetraPlacarIA (int posicao, string letraAtual) {
+        // TODO atualizar quando a IA encostar na letra acrescentar a letra no placar dela 
+        // e deixar um espaço em branco no placar do robson
     }
 
     /*
@@ -133,7 +200,7 @@ public class WordsScript : MonoBehaviour
         List<Vector3> pos = new List<Vector3>();
         // Percorre a matriz grid
         for(int i = 0; i < 38; i++){
-            for(int j = 0; j <20; j++){
+            for(int j = 0; j < 20; j++){
                 // Verifica se o valor daquela posição na grid é igual a 1 e se não é no eixo y igual a 6 e 2
                 // O eixo y 6 é onde nasce a IA, e o eixo y 2 é onde nasce o robson, assim não terá letras nestas plataformas
                 if(grid.GetValue(i,j) == 1 && j != 6 && j != 2){
