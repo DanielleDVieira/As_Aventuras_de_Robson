@@ -1,0 +1,499 @@
+fileFormatVersion: 2
+guid: fa4d4c5de4197d74ab1d570463e93d0a
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: robsonPulando_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1510
+        width: 502
+        height: 535
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67db20bb48d197f47837663d30213ec0
+      internalID: -355922254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robsonPulando_1
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 1581
+        width: 497
+        height: 467
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9965ab736c9e1684598b2340a7e23993
+      internalID: -1980890256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robsonPulando_3
+      rect:
+        serializedVersion: 2
+        x: 1515
+        y: 1427
+        width: 504
+        height: 617
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f53ddb106e26424f8f9ef47edd4d989
+      internalID: 538670398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robsonPulando_4
+      rect:
+        serializedVersion: 2
+        x: 2016
+        y: 1461
+        width: 493
+        height: 584
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cc893b6e39ca6a42a6647eae04d7e49
+      internalID: 1975873456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robsonPulando_5
+      rect:
+        serializedVersion: 2
+        x: 2521
+        y: 1513
+        width: 488
+        height: 533
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 603304eaaaad19a48b916e85c88416cc
+      internalID: -1896247632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robsonPulando_6
+      rect:
+        serializedVersion: 2
+        x: 3024
+        y: 1517
+        width: 491
+        height: 528
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fa3650dc5eb12748a1e0db4ec404d63
+      internalID: -1217945986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robsonPulando_7
+      rect:
+        serializedVersion: 2
+        x: 3531
+        y: 1517
+        width: 489
+        height: 528
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 926a39d1a9fc2334caa96a92df7d4ac3
+      internalID: -478030242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robsonPulando_23
+      rect:
+        serializedVersion: 2
+        x: 3206
+        y: 842
+        width: 553
+        height: 482
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8719edaddcd9fa4684c46d26742d9c6
+      internalID: 523555257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robsonPulando_29
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 785
+        width: 497
+        height: 528
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccda7589ca99aab479f20a309ab1aa70
+      internalID: 1500126802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robsonPulando_30
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 799
+        width: 522
+        height: 517
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c83923ea469551c40b226d840db97110
+      internalID: -394742184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robsonPulando_31
+      rect:
+        serializedVersion: 2
+        x: 1547
+        y: 810
+        width: 551
+        height: 506
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8d05c7ad598eb64f94b11ec950f4cfe
+      internalID: 963206502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robsonPulando_32
+      rect:
+        serializedVersion: 2
+        x: 2099
+        y: 804
+        width: 553
+        height: 514
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e7121b664a994d40a5b6c195e6ce980
+      internalID: 1832248187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robsonPulando_33
+      rect:
+        serializedVersion: 2
+        x: 2652
+        y: 780
+        width: 553
+        height: 539
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0013b1133beeb04c8c75eefedebd7d3
+      internalID: 1096969015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robsonPulando_37
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 791
+        width: 526
+        height: 523
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70b6550ac472f3e448f534c039d3b556
+      internalID: -741535760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robsonPulando_49
+      rect:
+        serializedVersion: 2
+        x: 1005
+        y: 1388
+        width: 512
+        height: 660
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7ce68db2e5230f49bca8f723a23b990
+      internalID: -1357583562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      robsonPulando_19: -909441749
+      robsonPulando_31: 963206502
+      robsonPulando_5: -1896247632
+      robsonPulando_34: 113863757
+      robsonPulando_47: 2145487619
+      robsonPulando_41: 454104060
+      robsonPulando_8: 470866756
+      robsonPulando_30: -394742184
+      robsonPulando_43: 1533128761
+      robsonPulando_35: -1099298984
+      robsonPulando_24: 1727682487
+      robsonPulando_27: -793691097
+      robsonPulando_9: 317081140
+      robsonPulando_16: 1312906578
+      robsonPulando_18: -179763971
+      robsonPulando_28: -432324546
+      robsonPulando_12: 2065098759
+      robsonPulando_11: -1349416642
+      robsonPulando_13: 591548334
+      robsonPulando_46: -127223434
+      robsonPulando_0: -355922254
+      robsonPulando_23: 523555257
+      robsonPulando_10: -1690942917
+      robsonPulando_32: 1832248187
+      robsonPulando_42: -1060294809
+      robsonPulando_29: 1500126802
+      robsonPulando_2: 1211204556
+      robsonPulando_37: -741535760
+      robsonPulando_20: 363035795
+      robsonPulando_7: -478030242
+      robsonPulando_45: -2111991380
+      robsonPulando_14: -1498844537
+      robsonPulando_38: -1792342644
+      robsonPulando_48: 1798133800
+      robsonPulando_21: 1424179361
+      robsonPulando_26: 2075700953
+      robsonPulando_4: 1975873456
+      robsonPulando_44: 779702145
+      robsonPulando_40: -44305416
+      robsonPulando_22: 1730753201
+      robsonPulando_6: -1217945986
+      robsonPulando_3: 538670398
+      robsonPulando_15: -681576341
+      robsonPulando_39: 221421602
+      robsonPulando_17: -1032237387
+      robsonPulando_49: -1357583562
+      robsonPulando_33: 1096969015
+      robsonPulando_25: 995177108
+      robsonPulando_1: -1980890256
+      robsonPulando_36: 37125576
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
