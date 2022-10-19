@@ -23,6 +23,9 @@ public class WordsScript : MonoBehaviour
     // Objeto que sera a IA
     public GameObject IA;
 
+    // Fase de Vitoria
+    public GameObject VictoryMenu;
+
     // Para saber qual é a Word "sorteada"
     Word atual;
     int posLetraAtual = 0;
@@ -92,6 +95,12 @@ public class WordsScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Aparecer tela de Vitoria
+        if (letrasRobson.text == atual.Portugues)
+        {
+            VictoryMenu.SetActive(true);
+        }
+
         // Pegando a quantidade total de prefabs existentes (Baseando-se na quantidade de elementos com a tag "Letra")
         GameObject[] gObjects = GameObject.FindGameObjectsWithTag("Letra");
         int tamanhoAtual = gObjects.Length;
@@ -101,7 +110,7 @@ public class WordsScript : MonoBehaviour
             tamanhoAntigo = tamanhoAtual;
             RemoveCollectedLetter();
         }
-        
+ 
         Vector3 posIA = IA.transform.position;
         float inicio, comprimento;
         inicio = Time.time;
