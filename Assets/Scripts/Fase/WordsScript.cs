@@ -20,6 +20,10 @@ public class WordsScript : MonoBehaviour
     // Instanciando objeto grid
     private Grid grid;
 
+    float startTime;
+    float journeyLength;
+    Vector3 comeco;
+
     // Objeto que sera a IA
     public GameObject IA;
 
@@ -85,8 +89,11 @@ public class WordsScript : MonoBehaviour
         }
         tamanhoAntigo = atual.Portugues.Length;
         ColliderSizeUpdate();
-
-        movement();
+        GameObject[] gObjects = GameObject.FindGameObjectsWithTag("Letra");
+        startTime = Time.time;
+        comeco = IA.transform.position;
+        journeyLength = Vector3.Distance(comeco, gObjects[0].transform.position);
+        movement(gObjects[0].transform.position);
     }
 
     // Update is called once per frame
@@ -100,15 +107,12 @@ public class WordsScript : MonoBehaviour
         {
             tamanhoAntigo = tamanhoAtual;
             RemoveCollectedLetter();
+            startTime = Time.time;
+            comeco = IA.transform.position;
+            journeyLength = Vector3.Distance(comeco, gObjects[0].transform.position);
+            movement(gObjects[0].transform.position);
         }
         
-        Vector3 posIA = IA.transform.position;
-        float inicio, comprimento;
-        inicio = Time.time;
-        comprimento = Vector3.Distance(posIA, new Vector3(4, -3, 0));
-        float tempo = Time.time - inicio;
-        float velocidade = (tempo / comprimento) * 8;
-        IA.transform.position = Vector3.Lerp(posIA, new Vector3(4, -3, 0), velocidade);
     }
 
     public Grid getGrid() {
@@ -228,20 +232,15 @@ public class WordsScript : MonoBehaviour
         return pos;
     }
 
-    private void movement() {
-        Vector3 posIA = IA.transform.position;
-        List<Vector3> menorCaminho = new List<Vector3>();
-        float inicio, comprimento;
-        inicio = Time.time;
-        
-        Debug.Log("Posicao IA: " + posIA);
-
-        menorCaminho = PathFinding.buscaLargura(posIA, new Vector3(4, -3, 0), grid);
-
-        comprimento = Vector3.Distance(posIA, menorCaminho[1]);
-        float tempo = Time.time - inicio;
-        float velocidade = (tempo / comprimento) * 8;
-        Debug.Log("menorCaminho[1]: " + menorCaminho[1]);
-        IA.transform.position = Vector3.Lerp(posIA, new Vector3(4, -3, 0), velocidade);
+    private void movement(Vector3 destino) {
+        List<Vector3> menoresCaminhos = PathFinding.buscaLargura(comeco, destino, grid);
+        float distCoverage = (Time.time - startTime) * 1.0f;
+        float fractionOfJourney = distCoverage / journeyLength;
+        foreach (Vector3 caminho in menoresCaminhos){
+            while(IA.transform.position != caminho){
+                IA.transform.position = Vector3.Lerp(comeco, caminho, fractionOfJourney);
+            }
+        }
+        //IA.transform.position = Vector3.Lerp(comeco, destino, fractionOfJourney);
     }
 }
