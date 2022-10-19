@@ -82,6 +82,7 @@ public class WordsScript : MonoBehaviour
         tamanhoAntigo = atual.Portugues.Length;
         ColliderSizeUpdate();
 
+        PathFinding.buscaLargura(new Vector3(14, -7, 0), new Vector3(4, -3, 0), grid);
     }
 
     // Update is called once per frame
