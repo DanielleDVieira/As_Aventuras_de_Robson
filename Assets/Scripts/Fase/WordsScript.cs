@@ -118,11 +118,11 @@ public class WordsScript : MonoBehaviour
             startTime = Time.time;
             comeco = IA.transform.position;
 
-            menoresCaminhos = PathFinding.buscaLargura(comeco, gObjects[0];, grid);
-            pos = menoresCaminhos[0];
-            journeyLength = Vector3.Distance(comeco, gObjects[0];.transform.position);
+            //menoresCaminhos = PathFinding.buscaLargura(comeco, gObjects[0], grid);
+            //pos = menoresCaminhos[0];
+            //journeyLength = Vector3.Distance(comeco, gObjects[0].transform.position);
         }
-        movement();
+        //movement();
         
     }
 
@@ -244,13 +244,13 @@ public class WordsScript : MonoBehaviour
     }
 
     private void movement(Vector3 destino) {
-        
+        /*
         float distCoverage = (Time.time - startTime) * 1.0f;
         float fractionOfJourney = distCoverage / journeyLength;
         while(IA.transform.position != caminho){
-                IA.transform.position = Vector3.Lerp(comeco, caminho, fractionOfJourney);
+            IA.transform.position = Vector3.Lerp(comeco, caminho, fractionOfJourney);
         }
-        
+        */
         //IA.transform.position = Vector3.Lerp(comeco, destino, fractionOfJourney);
     }
 }
