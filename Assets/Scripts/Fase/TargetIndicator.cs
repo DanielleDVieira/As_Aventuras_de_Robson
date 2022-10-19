@@ -5,7 +5,7 @@ using TMPro;
 
 public class TargetIndicator : MonoBehaviour
 {
-    
+    /*
     int tamanhoAntigo;
     WordsScript target;
     public float HideDistance;
@@ -49,6 +49,6 @@ public class TargetIndicator : MonoBehaviour
         return null;
     }
 
-    
+    */
 
 }
