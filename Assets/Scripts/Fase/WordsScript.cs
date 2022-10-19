@@ -89,11 +89,7 @@ public class WordsScript : MonoBehaviour
         }
         tamanhoAntigo = atual.Portugues.Length;
         ColliderSizeUpdate();
-        GameObject[] gObjects = GameObject.FindGameObjectsWithTag("Letra");
-        startTime = Time.time;
-        comeco = IA.transform.position;
-        journeyLength = Vector3.Distance(comeco, gObjects[0].transform.position);
-        movement(gObjects[0].transform.position);
+
     }
 
     // Update is called once per frame
@@ -101,17 +97,23 @@ public class WordsScript : MonoBehaviour
     {
         // Pegando a quantidade total de prefabs existentes (Baseando-se na quantidade de elementos com a tag "Letra")
         GameObject[] gObjects = GameObject.FindGameObjectsWithTag("Letra");
+        Vector3 pos = new Vector3();
+        List<Vector3> menoresCaminhos = new List<Vector3>();
         int tamanhoAtual = gObjects.Length;
         // Caso o tamanho antigo da quantidade de elemento seja diferente da atual, significa que uma letra foi "coletada"
         if (tamanhoAntigo != tamanhoAtual)
         {
             tamanhoAntigo = tamanhoAtual;
             RemoveCollectedLetter();
+            
             startTime = Time.time;
             comeco = IA.transform.position;
-            journeyLength = Vector3.Distance(comeco, gObjects[0].transform.position);
-            movement(gObjects[0].transform.position);
+
+            menoresCaminhos = PathFinding.buscaLargura(comeco, gObjects[0];, grid);
+            pos = menoresCaminhos[0];
+            journeyLength = Vector3.Distance(comeco, gObjects[0];.transform.position);
         }
+        movement();
         
     }
 
@@ -233,14 +235,13 @@ public class WordsScript : MonoBehaviour
     }
 
     private void movement(Vector3 destino) {
-        List<Vector3> menoresCaminhos = PathFinding.buscaLargura(comeco, destino, grid);
+        
         float distCoverage = (Time.time - startTime) * 1.0f;
         float fractionOfJourney = distCoverage / journeyLength;
-        foreach (Vector3 caminho in menoresCaminhos){
-            while(IA.transform.position != caminho){
+        while(IA.transform.position != caminho){
                 IA.transform.position = Vector3.Lerp(comeco, caminho, fractionOfJourney);
-            }
         }
+        
         //IA.transform.position = Vector3.Lerp(comeco, destino, fractionOfJourney);
     }
 }
