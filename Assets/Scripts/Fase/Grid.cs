@@ -837,7 +837,7 @@ public class Grid
 
         // X: posicao[0]  width
         // Y: posicao[1]  height
-        int yAlterado = (int) posicao[1] - 1;
+        int yAlterado = (int) posicao[1];
 
         // Andar um quadrado a esquerda: x -1
         x = (int) posicao[0] - 1;
