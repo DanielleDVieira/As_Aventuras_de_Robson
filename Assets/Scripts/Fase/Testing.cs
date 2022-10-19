@@ -28,7 +28,7 @@ public class Testing : MonoBehaviour
         // Se clicado no botão direito do mouse
         if (Input.GetMouseButtonDown(1)) {
             string gridParaArquivo = "";
-
+            /*
             // Formar texto com cada linha com as posições e os valores dos quadrados da grid
             for (int x = 0; x < 38; x++) {
                 for (int y = 0; y < 20; y++) {
@@ -39,10 +39,11 @@ public class Testing : MonoBehaviour
             salvaGridArquivo(gridParaArquivo);
 
             // Teste para salvar apenas uma linha no arquivo .txt e também debugar
-            //int x, y;
-            //grid.GetXY(UtilsClass.GetMouseWorldPosition(), out x, out y);
-            //salvaGridArquivo("SetValue("+x+", "+y+", "+grid.GetValue(UtilsClass.GetMouseWorldPosition())+");");
-            //Debug.Log(grid.GetValue(UtilsClass.GetMouseWorldPosition()));
+            int x, y;
+            grid.GetXY(UtilsClass.GetMouseWorldPosition(), out x, out y);
+            salvaGridArquivo("SetValue("+x+", "+y+", "+grid.GetValue(UtilsClass.GetMouseWorldPosition())+");");
+            Debug.Log(grid.GetValue(UtilsClass.GetMouseWorldPosition()));
+            */
         }
     }
 
