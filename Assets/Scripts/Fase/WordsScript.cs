@@ -20,6 +20,9 @@ public class WordsScript : MonoBehaviour
     // Instanciando objeto grid
     private Grid grid;
 
+    // Objeto que sera a IA
+    public GameObject IA;
+
     // Para saber qual é a Word "sorteada"
     Word atual;
     int posLetraAtual = 0;
@@ -73,6 +76,7 @@ public class WordsScript : MonoBehaviour
             var letterScript = prefab_gameObject.GetComponent<LetterScript>();
             letterScript.word = this;
             letterScript.posicao = i;
+
             TextMeshProUGUI txt = prefab_gameObject.GetComponentInChildren<TextMeshProUGUI>();
             txt.text = atual.Portugues[i].ToString().ToUpper();
             letterScript.letra = txt.text;
@@ -82,7 +86,7 @@ public class WordsScript : MonoBehaviour
         tamanhoAntigo = atual.Portugues.Length;
         ColliderSizeUpdate();
 
-        PathFinding.buscaLargura(new Vector3(14, -7, 0), new Vector3(4, -3, 0), grid);
+        movement();
     }
 
     // Update is called once per frame
@@ -97,6 +101,18 @@ public class WordsScript : MonoBehaviour
             tamanhoAntigo = tamanhoAtual;
             RemoveCollectedLetter();
         }
+        
+        Vector3 posIA = IA.transform.position;
+        float inicio, comprimento;
+        inicio = Time.time;
+        comprimento = Vector3.Distance(posIA, new Vector3(4, -3, 0));
+        float tempo = Time.time - inicio;
+        float velocidade = (tempo / comprimento) * 8;
+        IA.transform.position = Vector3.Lerp(posIA, new Vector3(4, -3, 0), velocidade);
+    }
+
+    public Grid getGrid() {
+        return this.grid;
     }
 
     /*
@@ -210,5 +226,22 @@ public class WordsScript : MonoBehaviour
             }
         }
         return pos;
+    }
+
+    private void movement() {
+        Vector3 posIA = IA.transform.position;
+        List<Vector3> menorCaminho = new List<Vector3>();
+        float inicio, comprimento;
+        inicio = Time.time;
+        
+        Debug.Log("Posicao IA: " + posIA);
+
+        menorCaminho = PathFinding.buscaLargura(posIA, new Vector3(4, -3, 0), grid);
+
+        comprimento = Vector3.Distance(posIA, menorCaminho[1]);
+        float tempo = Time.time - inicio;
+        float velocidade = (tempo / comprimento) * 8;
+        Debug.Log("menorCaminho[1]: " + menorCaminho[1]);
+        IA.transform.position = Vector3.Lerp(posIA, new Vector3(4, -3, 0), velocidade);
     }
 }

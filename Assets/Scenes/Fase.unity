@@ -2726,6 +2726,7 @@ GameObject:
   m_Component:
   - component: {fileID: 161954851}
   - component: {fileID: 161954850}
+  - component: {fileID: 161954852}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -2793,13 +2794,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 161954849}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.01, y: -2.97, z: 0}
+  m_LocalPosition: {x: 14, y: -8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &161954852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161954849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e63fe9d7643c5ff49b33186397121ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &201743381
 GameObject:
   m_ObjectHideFlags: 0
@@ -3772,6 +3785,7 @@ MonoBehaviour:
   textMesh: {fileID: 607613704}
   letrasRobson: {fileID: 2139928117}
   prefab: {fileID: 7464743300883878803, guid: 6ba2903063f948047a12ff5b43593c07, type: 3}
+  IA: {fileID: 161954849}
 --- !u!114 &533970316
 MonoBehaviour:
   m_ObjectHideFlags: 0

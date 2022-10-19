@@ -829,11 +829,8 @@ public class Grid
         int a = 0;
         int b = 0;
 
-        Debug.Log("Aux: " + aux);
         GetXY(aux, out a, out b);
         Vector3 posicao = new Vector3(a, b, 0);
-
-        Debug.Log("A: " + a + " - B: " + b);
 
         // X: posicao[0]  width
         // Y: posicao[1]  height
@@ -849,14 +846,12 @@ public class Grid
         // Andar para diagonal acima e esquerda: x -1 & y +1
         ++y;
         if ((width > x && 0 <= x) && (height > y && 0 <= y) && gridArray[x, y] != 0) {
-            Debug.Log("Diagonal a esquerda: " + GetWorldPosition(x, y) + " valor: " + gridArray[x, y]);
             vizinhos.Add(GetWorldPosition(x, y));
         }
 
         // Andar para cima: y + 1
         x = (int) posicao[0];
         if ((height > y && 0 <= y) && gridArray[x, y] != 0) {
-            Debug.Log("Em cima: " + GetWorldPosition(x, y) + " valor: " + gridArray[x, y]);
             vizinhos.Add(GetWorldPosition(x, y));
         }
 

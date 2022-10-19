@@ -31,7 +31,6 @@ public static class PathFinding
 
             removido = fila.First();
 
-            Debug.Log("Removido: " + removido);
             // Remover vértice da primeira posição da lista
             fila.RemoveAt(0);
 
@@ -57,12 +56,13 @@ public static class PathFinding
             }
         }
 
-        Debug.Log("Vim no dicionário");
         // Encontrar no nodeParets o menor caminho
         Vector3 aux = nodeParents[destino];
 
         // Adicionar a posição destino
         menorCaminho.Add(destino);
+        // Adicionar pai em menorCaminho
+        menorCaminho.Add(aux);
 
         // Enquanto o vértice procurado for diferente da posição que a IA saiu para buscar a letra
         while (aux != lugarAtual) {
@@ -75,10 +75,11 @@ public static class PathFinding
         // Como começou a adicionar a última posição no início, é necessário reverse
         menorCaminho.Reverse();
 
+        /*
         Debug.Log("Menor caminho:");
         foreach(Vector3 node in menorCaminho){
             Debug.Log(node);
-        }
+        }*/
 
         return menorCaminho;
     }
