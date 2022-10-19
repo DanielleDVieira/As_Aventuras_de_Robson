@@ -20,6 +20,13 @@ public class WordsScript : MonoBehaviour
     // Instanciando objeto grid
     private Grid grid;
 
+    float startTime;
+    float journeyLength;
+    Vector3 comeco;
+
+    // Objeto que sera a IA
+    public GameObject IA;
+
     // Para saber qual é a Word "sorteada"
     Word atual;
     int posLetraAtual = 0;
@@ -73,6 +80,7 @@ public class WordsScript : MonoBehaviour
             var letterScript = prefab_gameObject.GetComponent<LetterScript>();
             letterScript.word = this;
             letterScript.posicao = i;
+
             TextMeshProUGUI txt = prefab_gameObject.GetComponentInChildren<TextMeshProUGUI>();
             txt.text = atual.Portugues[i].ToString().ToUpper();
             letterScript.letra = txt.text;
@@ -81,7 +89,11 @@ public class WordsScript : MonoBehaviour
         }
         tamanhoAntigo = atual.Portugues.Length;
         ColliderSizeUpdate();
-
+        GameObject[] gObjects = GameObject.FindGameObjectsWithTag("Letra");
+        startTime = Time.time;
+        comeco = IA.transform.position;
+        journeyLength = Vector3.Distance(comeco, gObjects[0].transform.position);
+        movement(gObjects[0].transform.position);
     }
 
     // Update is called once per frame
@@ -95,7 +107,16 @@ public class WordsScript : MonoBehaviour
         {
             tamanhoAntigo = tamanhoAtual;
             RemoveCollectedLetter();
+            startTime = Time.time;
+            comeco = IA.transform.position;
+            journeyLength = Vector3.Distance(comeco, gObjects[0].transform.position);
+            movement(gObjects[0].transform.position);
         }
+        
+    }
+
+    public Grid getGrid() {
+        return this.grid;
     }
 
     /*
@@ -209,5 +230,17 @@ public class WordsScript : MonoBehaviour
             }
         }
         return pos;
+    }
+
+    private void movement(Vector3 destino) {
+        List<Vector3> menoresCaminhos = PathFinding.buscaLargura(comeco, destino, grid);
+        float distCoverage = (Time.time - startTime) * 1.0f;
+        float fractionOfJourney = distCoverage / journeyLength;
+        foreach (Vector3 caminho in menoresCaminhos){
+            while(IA.transform.position != caminho){
+                IA.transform.position = Vector3.Lerp(comeco, caminho, fractionOfJourney);
+            }
+        }
+        //IA.transform.position = Vector3.Lerp(comeco, destino, fractionOfJourney);
     }
 }

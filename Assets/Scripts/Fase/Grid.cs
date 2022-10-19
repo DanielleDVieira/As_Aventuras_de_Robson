@@ -29,7 +29,7 @@ public class Grid
         gridArray = new int[width, height];
         debugTextArray = new TextMesh[width, height];
 
-        /*for (int x = 0; x < gridArray.GetLength(0); x++) {
+        for (int x = 0; x < gridArray.GetLength(0); x++) {
             for (int y = 0; y < gridArray.GetLength(1); y++) {
                 // Criar texto
                 debugTextArray[x, y] = UtilsClass.CreateWorldText(gridArray[x, y].ToString(), null, GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f, 5, Color.black, TextAnchor.MiddleCenter);
@@ -42,7 +42,7 @@ public class Grid
         // Desenhar linhas do topo e da lateral direita
         Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.black, 100f);
         Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.black, 100f);
-        */
+        
 
         // Setar valor de cada quadrado na grid na mão, copiados do arquivo txt
         SetValue(0, 0, 0);
@@ -805,8 +805,88 @@ public class Grid
         SetValue(37, 17, 0);
         SetValue(37, 18, 0);
         SetValue(37, 19, 0);
+
+        /*
+        //Verificando se os vizinhos estão certo, lembrando do -1 para arrumar o erro do y
+        List<Vector3> teste = findNeighbor(GetWorldPosition(31, 4));
+        int tamanho = teste.Count;
+        Debug.Log(GetWorldPosition(31, 3));
+        Debug.Log("Tamanho: " + tamanho);
+
+        for (int i = 0; i < tamanho; i++) {
+            Debug.Log("Posicao: " + teste[i].ToString());
+        }*/
     }
 
+    /*
+        Função que verifica quais vértices adjacêntes da posição atual é possível andar 
+    */
+    public List<Vector3> findNeighbor(Vector3 aux) {
+        List<Vector3> vizinhos = new List<Vector3>();
+        int x = 0;
+        int y = 0;
+
+        int a = 0;
+        int b = 0;
+
+        GetXY(aux, out a, out b);
+        Vector3 posicao = new Vector3(a, b, 0);
+
+        // X: posicao[0]  width
+        // Y: posicao[1]  height
+        int yAlterado = (int) posicao[1];
+
+        // Andar um quadrado a esquerda: x -1
+        x = (int) posicao[0] - 1;
+        y = yAlterado;
+        if ((width > x && 0 <= x) && gridArray[x, y] != 0) {
+            vizinhos.Add(GetWorldPosition(x, y));
+        }
+
+        // Andar para diagonal acima e esquerda: x -1 & y +1
+        ++y;
+        if ((width > x && 0 <= x) && (height > y && 0 <= y) && gridArray[x, y] != 0) {
+            vizinhos.Add(GetWorldPosition(x, y));
+        }
+
+        // Andar para cima: y + 1
+        x = (int) posicao[0];
+        if ((height > y && 0 <= y) && gridArray[x, y] != 0) {
+            vizinhos.Add(GetWorldPosition(x, y));
+        }
+
+        // Andar para diagonal acima e direita: x +1 & y +1
+        x++;
+        if ((width > x && 0 <= x) && (height > y && 0 <= y) && gridArray[x, y] != 0) {
+            vizinhos.Add(GetWorldPosition(x, y));
+        }
+
+        // Andar para direita: x +1
+        y = (int) yAlterado;
+        if ((width > x && 0 <= x) && gridArray[x, y] != 0) {
+            vizinhos.Add(GetWorldPosition(x, y));
+        }
+
+        // Andar para diagonal abaixo e direita: x +1 & y-1
+        y--;
+        if ((width > x && 0 <= x) && (height > y && 0 <= y) && gridArray[x, y] != 0) {
+            vizinhos.Add(GetWorldPosition(x, y));
+        }
+
+        // Andar para baixo: y -1
+        x = (int) posicao[0];
+        if ((height > y && 0 <= y) && gridArray[x, y] != 0) {
+            vizinhos.Add(GetWorldPosition(x, y));
+        }
+
+        // Andar para diagonal esquerda e abaixo: x -1 & y -1
+        x--;
+        if ((width > x && 0 <= x) && (height > y && 0 <= y) && gridArray[x, y] != 0) {
+            vizinhos.Add(GetWorldPosition(x, y));
+        }
+
+        return vizinhos;
+    }
 
     public Vector3 GetWorldPosition(int x, int y) {
         return new Vector3(x, y) * cellSize + originPosition;
@@ -837,7 +917,7 @@ public class Grid
 
             // Alterar valores os setando manualmente 
             gridArray[x, y] = value;
-            //debugTextArray[x, y].text = gridArray[x, y].ToString(); 
+            debugTextArray[x, y].text = gridArray[x, y].ToString(); 
         }
     }
 
