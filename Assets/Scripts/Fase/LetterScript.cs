@@ -31,6 +31,7 @@ public class LetterScript : MonoBehaviour
 
         } else if(collision.gameObject.CompareTag("IA")) {
             // Destruir letra
+            Debug.Log("Destrui :)");
             Destroy(this.gameObject);
 
             // Chamar função que irá acrescentar a letra destruida no placar da IA

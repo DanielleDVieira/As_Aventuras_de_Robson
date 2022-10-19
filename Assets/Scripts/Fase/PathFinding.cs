@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public static class PathFinding
 {    
@@ -31,6 +32,8 @@ public static class PathFinding
 
             removido = fila.First();
 
+            
+            Debug.Log("Removido: " + removido);
             // Remover vértice da primeira posição da lista
             fila.RemoveAt(0);
 
@@ -38,24 +41,29 @@ public static class PathFinding
             adj = grid.findNeighbor(removido);
 
             // Se o vértice removido for o meu destino paro o while
-            if (removido == destino) {
+            if (removido == destino) { // 14.5 -0.5 
                 fila.Clear();
-            } else {
-                // Adicionar vértices não visitados da lista de adjacência do vértice
-                foreach(Vector3 node in adj){
-                    // Verificar se o vértice já foi visitado
-                    if ( ! verticesVisit.Contains(node)) {
-                        // Adicionar como vértice visitado
-                        verticesVisit.Add(node);
-                        // Adicionar vértice na fila para caminhamento
-                        fila.Add(node);
-                        // Adicionar filho e pai
-                        nodeParents.Add(node, removido);
-                    }
-                }
+                    
             }
-        }
+            // Adicionar vértices não visitados da lista de adjacência do vértice
+            foreach(Vector3 node in adj){
+                // Verificar se o vértice já foi visitado
+                if ( ! verticesVisit.Contains(node)) {
+                    // Adicionar como vértice visitado
+                    verticesVisit.Add(node);
+                    // Adicionar vértice na fila para caminhamento
+                    fila.Add(node);
+                    // Adicionar filho e pai
 
+                    //Debug.Log("NodeParents: " + node + removido);
+                    nodeParents.Add(node, removido); 
+                }
+                
+            }
+            
+                
+        }
+        Debug.Log("Destino: " + destino);
         // Encontrar no nodeParets o menor caminho
         Vector3 aux = nodeParents[destino];
 
@@ -79,7 +87,8 @@ public static class PathFinding
         Debug.Log("Menor caminho:");
         foreach(Vector3 node in menorCaminho){
             Debug.Log(node);
-        }*/
+        }
+        */
 
         return menorCaminho;
     }

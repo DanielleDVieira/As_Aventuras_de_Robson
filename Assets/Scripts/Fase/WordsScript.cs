@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Linq;
+using System;
 
 public class WordsScript : MonoBehaviour
 {
@@ -23,6 +25,7 @@ public class WordsScript : MonoBehaviour
     float startTime;
     float journeyLength;
     Vector3 comeco;
+    List<Vector3> menoresCaminhos;
 
     // Objeto que sera a IA
     public GameObject IA;
@@ -93,6 +96,14 @@ public class WordsScript : MonoBehaviour
         tamanhoAntigo = atual.Portugues.Length;
         ColliderSizeUpdate();
 
+
+        startTime = Time.time;
+        comeco = IA.transform.position;
+        GameObject[] gObjects = GameObject.FindGameObjectsWithTag("Letra");
+        journeyLength = Vector3.Distance(comeco, gObjects[0].transform.position);
+
+        menoresCaminhos = PathFinding.buscaLargura(comeco, gObjects[0].transform.position, grid);
+
     }
 
     // Update is called once per frame
@@ -102,27 +113,36 @@ public class WordsScript : MonoBehaviour
         if (letrasRobson.text == atual.Portugues)
         {
             VictoryMenu.SetActive(true);
-        }
+        } else { 
+            // Pegando a quantidade total de prefabs existentes (Baseando-se na quantidade de elementos com a tag "Letra")
+            GameObject[] gObjects = GameObject.FindGameObjectsWithTag("Letra");
+            Vector3 pos = new Vector3();
+            int tamanhoAtual = gObjects.Length;
+            // Caso o tamanho antigo da quantidade de elemento seja diferente da atual, significa que uma letra foi "coletada"
+            if (tamanhoAntigo != tamanhoAtual)
+            {
+                tamanhoAntigo = tamanhoAtual;
+                RemoveCollectedLetter();
+                if(gObjects.Length != 0){
+                    startTime = Time.time;
+                    comeco = IA.transform.position;
 
-        // Pegando a quantidade total de prefabs existentes (Baseando-se na quantidade de elementos com a tag "Letra")
-        GameObject[] gObjects = GameObject.FindGameObjectsWithTag("Letra");
-        Vector3 pos = new Vector3();
-        List<Vector3> menoresCaminhos = new List<Vector3>();
-        int tamanhoAtual = gObjects.Length;
-        // Caso o tamanho antigo da quantidade de elemento seja diferente da atual, significa que uma letra foi "coletada"
-        if (tamanhoAntigo != tamanhoAtual)
-        {
-            tamanhoAntigo = tamanhoAtual;
-            RemoveCollectedLetter();
-            
-            startTime = Time.time;
-            comeco = IA.transform.position;
+                    menoresCaminhos = PathFinding.buscaLargura(comeco, gObjects[0].transform.position, grid);
+                    journeyLength = Vector3.Distance(comeco, gObjects[0].transform.position);
+                }
+                
+            }
+            if(gObjects.Length != 0) {
+                comeco = IA.transform.position;
+                
+                pos = menoresCaminhos.First();
+                movement(pos);
+                if (IA.transform.position == pos)
+                    menoresCaminhos.RemoveAt(0);
+                }
+            }
 
-            //menoresCaminhos = PathFinding.buscaLargura(comeco, gObjects[0], grid);
-            //pos = menoresCaminhos[0];
-            //journeyLength = Vector3.Distance(comeco, gObjects[0].transform.position);
-        }
-        //movement();
+
         
     }
 
@@ -195,8 +215,11 @@ public class WordsScript : MonoBehaviour
         GameObject objetoRemovido = new GameObject();
         foreach (GameObject item in prefabs)
         {
+            
             if (item == null) objetoRemovido = item;
         }
+        // TextMeshProUGUI txt = objetoRemovido.GetComponentInChildren<TextMeshProUGUI>();
+        // Debug.Log(txt.text);
         prefabs.Remove(objetoRemovido);
         // Atualizando as letras coletadas pelo robson
         letrasRobson.text += atual.Portugues[posLetraAtual];
@@ -244,13 +267,13 @@ public class WordsScript : MonoBehaviour
     }
 
     private void movement(Vector3 destino) {
-        /*
-        float distCoverage = (Time.time - startTime) * 1.0f;
+        
+        float distCoverage = (Time.time - startTime) * 1f;
         float fractionOfJourney = distCoverage / journeyLength;
-        while(IA.transform.position != caminho){
-            IA.transform.position = Vector3.Lerp(comeco, caminho, fractionOfJourney);
+        if(IA.transform.position != destino){
+            IA.transform.position = Vector3.Lerp(comeco, destino, fractionOfJourney);
         }
-        */
+        
         //IA.transform.position = Vector3.Lerp(comeco, destino, fractionOfJourney);
     }
 }

@@ -121,7 +121,7 @@ public class Grid
         SetValue(3, 13, 0);
         SetValue(3, 14, 0);
         SetValue(3, 15, 0);
-        SetValue(3, 16, 0);
+        SetValue(3, 16, 2);
         SetValue(3, 17, 0);
         SetValue(3, 18, 0);
         SetValue(3, 19, 0);
@@ -141,7 +141,7 @@ public class Grid
         SetValue(4, 13, 0);
         SetValue(4, 14, 0);
         SetValue(4, 15, 1);
-        SetValue(4, 16, 0);
+        SetValue(4, 16, 2);
         SetValue(4, 17, 0);
         SetValue(4, 18, 0);
         SetValue(4, 19, 0);
@@ -700,7 +700,7 @@ public class Grid
         SetValue(32, 12, 2);
         SetValue(32, 13, 0);
         SetValue(32, 14, 0);
-        SetValue(32, 15, 1);
+        SetValue(32, 15, 0);
         SetValue(32, 16, 0);
         SetValue(32, 17, 0);
         SetValue(32, 18, 0);
@@ -714,13 +714,13 @@ public class Grid
         SetValue(33, 6, 0);
         SetValue(33, 7, 0);
         SetValue(33, 8, 0);
-        SetValue(33, 9, 1);
+        SetValue(33, 9, 0);
         SetValue(33, 10, 2);
         SetValue(33, 11, 2);
         SetValue(33, 12, 2);
         SetValue(33, 13, 0);
         SetValue(33, 14, 0);
-        SetValue(33, 15, 1);
+        SetValue(33, 15, 0);
         SetValue(33, 16, 0);
         SetValue(33, 17, 0);
         SetValue(33, 18, 0);
@@ -734,13 +734,13 @@ public class Grid
         SetValue(34, 6, 0);
         SetValue(34, 7, 0);
         SetValue(34, 8, 0);
-        SetValue(34, 9, 1);
+        SetValue(34, 9, 0);
         SetValue(34, 10, 0);
         SetValue(34, 11, 0);
         SetValue(34, 12, 0);
         SetValue(34, 13, 0);
         SetValue(34, 14, 0);
-        SetValue(34, 15, 1);
+        SetValue(34, 15, 0);
         SetValue(34, 16, 0);
         SetValue(34, 17, 0);
         SetValue(34, 18, 0);
@@ -754,7 +754,7 @@ public class Grid
         SetValue(35, 6, 0);
         SetValue(35, 7, 0);
         SetValue(35, 8, 0);
-        SetValue(35, 9, 1);
+        SetValue(35, 9, 0);
         SetValue(35, 10, 0);
         SetValue(35, 11, 0);
         SetValue(35, 12, 0);
@@ -774,7 +774,7 @@ public class Grid
         SetValue(36, 6, 0);
         SetValue(36, 7, 0);
         SetValue(36, 8, 0);
-        SetValue(36, 9, 1);
+        SetValue(36, 9, 0);
         SetValue(36, 10, 0);
         SetValue(36, 11, 0);
         SetValue(36, 12, 0);
@@ -823,6 +823,7 @@ public class Grid
     */
     public List<Vector3> findNeighbor(Vector3 aux) {
         List<Vector3> vizinhos = new List<Vector3>();
+        Vector3 pos = new Vector3();
         int x = 0;
         int y = 0;
 
@@ -840,50 +841,54 @@ public class Grid
         x = (int) posicao[0] - 1;
         y = yAlterado;
         if ((width > x && 0 <= x) && gridArray[x, y] != 0) {
-            vizinhos.Add(GetWorldPosition(x, y));
+            pos = GetWorldPosition(x, y);
+            vizinhos.Add(new Vector3(pos.x + 0.5f, pos.y + 0.5f, 0.0f));
         }
 
         // Andar para diagonal acima e esquerda: x -1 & y +1
         ++y;
-        if ((width > x && 0 <= x) && (height > y && 0 <= y) && gridArray[x, y] != 0) {
+        /*if ((width > x && 0 <= x) && (height > y && 0 <= y) && gridArray[x, y] != 0) {
             vizinhos.Add(GetWorldPosition(x, y));
-        }
+        }*/
 
         // Andar para cima: y + 1
         x = (int) posicao[0];
         if ((height > y && 0 <= y) && gridArray[x, y] != 0) {
-            vizinhos.Add(GetWorldPosition(x, y));
+            pos = GetWorldPosition(x, y);
+            vizinhos.Add(new Vector3(pos.x + 0.5f, pos.y + 0.5f, 0.0f));
         }
 
         // Andar para diagonal acima e direita: x +1 & y +1
         x++;
-        if ((width > x && 0 <= x) && (height > y && 0 <= y) && gridArray[x, y] != 0) {
+        /*if ((width > x && 0 <= x) && (height > y && 0 <= y) && gridArray[x, y] != 0) {
             vizinhos.Add(GetWorldPosition(x, y));
-        }
+        }*/
 
         // Andar para direita: x +1
         y = (int) yAlterado;
         if ((width > x && 0 <= x) && gridArray[x, y] != 0) {
-            vizinhos.Add(GetWorldPosition(x, y));
+            pos = GetWorldPosition(x, y);
+            vizinhos.Add(new Vector3(pos.x + 0.5f, pos.y + 0.5f, 0.0f));
         }
 
         // Andar para diagonal abaixo e direita: x +1 & y-1
         y--;
-        if ((width > x && 0 <= x) && (height > y && 0 <= y) && gridArray[x, y] != 0) {
+        /*if ((width > x && 0 <= x) && (height > y && 0 <= y) && gridArray[x, y] != 0) {
             vizinhos.Add(GetWorldPosition(x, y));
-        }
+        }*/
 
         // Andar para baixo: y -1
         x = (int) posicao[0];
         if ((height > y && 0 <= y) && gridArray[x, y] != 0) {
-            vizinhos.Add(GetWorldPosition(x, y));
+            pos = GetWorldPosition(x, y);
+            vizinhos.Add(new Vector3(pos.x + 0.5f, pos.y + 0.5f, 0.0f));
         }
 
         // Andar para diagonal esquerda e abaixo: x -1 & y -1
-        x--;
+        /*x--;
         if ((width > x && 0 <= x) && (height > y && 0 <= y) && gridArray[x, y] != 0) {
             vizinhos.Add(GetWorldPosition(x, y));
-        }
+        }*/
 
         return vizinhos;
     }
