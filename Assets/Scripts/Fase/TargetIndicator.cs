@@ -1,4 +1,4 @@
-/*using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -7,17 +7,18 @@ public class TargetIndicator : MonoBehaviour
 {
 
     int tamanhoAntigo;
-    WordsScript target;
+    //public GameObject obj;
+    private WordsScript target;
     public float HideDistance;
 
     void Start(){
         target = GameObject.FindGameObjectWithTag("Script").GetComponent<WordsScript>();
-        tamanhoAntigo = target.getPrefabsSize();
+        //tamanhoAntigo = target.getPrefabsSize();
     }
 
     void Update(){
-        int tamanhoAtual = target.getPrefabsSize();
-
+        //int tamanhoAtual = target.getPrefabsSize();
+        //target = obj.GetComponent<WordsScript>();
         GameObject firstChild = target.getTarget();
 
         if(firstChild != null) {
@@ -50,4 +51,3 @@ public class TargetIndicator : MonoBehaviour
     }
 
 }
-*/

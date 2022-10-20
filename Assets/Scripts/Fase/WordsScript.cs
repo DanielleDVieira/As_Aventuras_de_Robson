@@ -148,6 +148,14 @@ public class WordsScript : MonoBehaviour
         
     }
 
+    public GameObject getTarget(){
+        return this.prefabs[0];
+    }
+
+    public int getPrefabsSize(){
+        return this.prefabs.Count;
+    }
+
     public Grid getGrid() {
         return this.grid;
     }

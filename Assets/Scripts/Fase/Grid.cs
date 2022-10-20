@@ -28,7 +28,7 @@ public class Grid
 
         gridArray = new int[width, height];
         debugTextArray = new TextMesh[width, height];
-
+        /*
         for (int x = 0; x < gridArray.GetLength(0); x++) {
             for (int y = 0; y < gridArray.GetLength(1); y++) {
                 // Criar texto
@@ -42,7 +42,7 @@ public class Grid
         // Desenhar linhas do topo e da lateral direita
         Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.black, 100f);
         Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.black, 100f);
-        
+        */
 
         // Setar valor de cada quadrado na grid na mão, copiados do arquivo txt
         SetValue(0, 0, 0);
@@ -922,7 +922,7 @@ public class Grid
 
             // Alterar valores os setando manualmente 
             gridArray[x, y] = value;
-            debugTextArray[x, y].text = gridArray[x, y].ToString(); 
+            //debugTextArray[x, y].text = gridArray[x, y].ToString(); */
         }
     }
 
