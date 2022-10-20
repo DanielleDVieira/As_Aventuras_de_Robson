@@ -39,7 +39,7 @@ public class WordsScript : MonoBehaviour
     int somVitoria = 0;
 
     // Para saber qual é a Word "sorteada"
-    Word atual;
+    public Word atual;
     int posLetraAtual = 0;
     // Tamanho antigo do Objeto que contém todos os prefabs
     int tamanhoAntigo;
@@ -156,8 +156,8 @@ public class WordsScript : MonoBehaviour
                 movement(pos);
                 if (IA.transform.position == pos)
                     menoresCaminhos.RemoveAt(0);
-                }
             }
+        }     
     }
 
     public GameObject getTarget(){

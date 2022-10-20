@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Text;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -50,8 +51,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // O personagem deve morrer se cair para fora dos limites do mapa
-        if (controller.transform.position.y <= LimiteInferior.transform.position.y)
+        // O personagem deve morrer se cair para fora dos limites do mapa ou não estiver com nenhuma letra
+        if ((controller.transform.position.y <= LimiteInferior.transform.position.y) || isGameOver())
         {
             // Gambiarra para tocar o efeito sonoro da derrota apenas uma vez (so no 1o Update() pos morte)
             somDerrota++;
@@ -62,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
 
             DeathMenu.SetActive(true);
             Time.timeScale = 0;
-        }
+        } 
 
         // Recebendo valor do input das teclas horizontais 
         // Pré-setado na unity: Horizontal = A e D
@@ -127,14 +128,14 @@ public class PlayerMovement : MonoBehaviour
         // Se colidido com a IA
         if(collision.gameObject.CompareTag("IA")) {
 
+            StringBuilder auxRobson = new StringBuilder(wordScript.letrasRobson.text);
+            StringBuilder auxIA = new StringBuilder(wordScript.letrasIA.text);
+            int posAux = 0;
+            int pos = -1;
+
             // Verificar se botão de ataque está pressionado
             if(_press.pressButtonAtack) {
-                int posAux = 0;
-                int pos = -1;
-
-                StringBuilder auxRobson = new StringBuilder(wordScript.letrasRobson.text);
-                StringBuilder auxIA = new StringBuilder(wordScript.letrasIA.text);
-
+                
                 // Percorrer a palavra do Robson procurando uma posição com _
                 while(posAux < wordScript.letrasRobson.text.Length) {
                     // Se encontrar uma posição com _ guardar esta posicao
@@ -152,7 +153,39 @@ public class PlayerMovement : MonoBehaviour
                     wordScript.letrasRobson.text = auxRobson.ToString();
                     wordScript.letrasIA.text = auxIA.ToString();
                 }
+            } else {
+                // Percorrer a palavra da IA procurando uma posição com _
+                while(posAux < wordScript.letrasIA.text.Length) {
+                    // Se encontrar uma posição com _ guardar esta posicao
+                    if(auxIA[posAux] == '_') {
+                        pos = posAux;
+                        posAux = wordScript.letrasIA.text.Length;
+                    }
+                    posAux++;
+                }   
+
+                // Se encontrar alguma posição válida para mudar, alterar letrasRobson e letrasIA
+                if (pos != -1) {
+                    auxIA[pos] = auxRobson[pos];
+                    auxRobson[pos] = '_';
+                    wordScript.letrasRobson.text = auxRobson.ToString();
+                    wordScript.letrasIA.text = auxIA.ToString();
+                }
             } 
+            //Tentar atrasar
+            for (int i = 0; i < 1000; i++);
         }
+    }
+
+    /*
+        Verificar se todas as letras foram coletadas pela IA
+    */
+    private bool isGameOver() {
+        bool result = false;
+
+        if (wordScript.letrasIA.text == wordScript.atual.Portugues) {
+            result = true;
+        }
+        return result;
     }
 }
