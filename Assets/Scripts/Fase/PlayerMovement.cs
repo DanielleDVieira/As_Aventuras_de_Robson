@@ -31,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject DeathMenu;
     int somDerrota = 0;
 
+    private AudioSource music;
+
     public GameObject LimiteInferior;
     public Joystick Joystick;
 
@@ -42,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     void Start() {
         _press = _button.GetComponent<ButtonAtack>();
         wordScript = GameObject.FindGameObjectWithTag("Script").GetComponent<WordsScript>();
+        music = GameObject.FindGameObjectWithTag("Music").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -53,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
             // Gambiarra para tocar o efeito sonoro da derrota apenas uma vez (so no 1o Update() pos morte)
             somDerrota++;
             if(somDerrota == 1){
-                SoundManagerScript.audioSrc.Stop();
+                music.Stop();
                 SoundManagerScript.PlaySound("defeat");
             }
 

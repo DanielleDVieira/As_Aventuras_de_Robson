@@ -253,14 +253,14 @@ public class WordsScript : MonoBehaviour
             // Alterar a letra na posição que preciso que ele pegou
             aux[posLetraAtual] = atual.Portugues[posLetraAtual];
             // Passar a palavra atualizada para letrasRobson
-            letrasRobson.text = aux.ToString();;
+            letrasRobson.text = aux.ToString();
         } else if (indicator == 0) {
             // Fazer uma cópia de como tá o letrasIA atualmente
             StringBuilder aux = new StringBuilder(letrasIA.text);
             // Alterar a letra na posição que preciso que ele pegou
             aux[posLetraAtual] = atual.Portugues[posLetraAtual];
             // Passar a palavra atualizada para letrasIA
-            letrasIA.text = aux.ToString();;
+            letrasIA.text = aux.ToString();
         }
         posLetraAtual++;
         ColliderSizeUpdate();

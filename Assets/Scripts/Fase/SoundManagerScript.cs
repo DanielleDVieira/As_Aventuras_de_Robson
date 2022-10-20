@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class SoundManagerScript : MonoBehaviour
 {
-    public static AudioClip victorySound, jumpSound, defeatSound;
+    public static AudioClip victorySound, jumpSound, defeatSound, playerCollectSound, enemyCollectSound;
     public static AudioSource audioSrc;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Sons no resources
         victorySound = Resources.Load<AudioClip> ("victory");
         jumpSound = Resources.Load<AudioClip> ("jump");
         defeatSound = Resources.Load<AudioClip> ("defeat");
+        playerCollectSound = Resources.Load<AudioClip> ("playerCollect");
+        enemyCollectSound = Resources.Load<AudioClip> ("enemyCollect");
 
         audioSrc = GetComponent<AudioSource> ();
     }
@@ -31,6 +34,10 @@ public class SoundManagerScript : MonoBehaviour
             audioSrc.PlayOneShot(jumpSound);
         }else if(clip == "defeat"){
             audioSrc.PlayOneShot(defeatSound);
+        }else if(clip == "playerCollect"){
+            audioSrc.PlayOneShot(playerCollectSound);
+        }else if(clip == "enemyCollect"){
+            audioSrc.PlayOneShot(enemyCollectSound);
         }
     }
 }
