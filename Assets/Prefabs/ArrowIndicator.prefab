@@ -57,7 +57,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27608242e33db22459999aad72fda2cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 0}
   HideDistance: 0
 --- !u!1 &4450248151338375032
 GameObject:
@@ -69,7 +68,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4450248151338375033}
   - component: {fileID: 4450248151338375034}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: seta
   m_TagString: Untagged
   m_Icon: {fileID: 0}

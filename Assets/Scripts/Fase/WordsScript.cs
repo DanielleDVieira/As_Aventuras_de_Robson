@@ -26,6 +26,7 @@ public class WordsScript : MonoBehaviour
     float journeyLength;
     Vector3 comeco;
     List<Vector3> menoresCaminhos;
+    public int indicator;
 
     // Objeto que sera a IA
     public GameObject IA;
@@ -124,7 +125,7 @@ public class WordsScript : MonoBehaviour
             if (tamanhoAntigo != tamanhoAtual)
             {
                 tamanhoAntigo = tamanhoAtual;
-                RemoveCollectedLetter();
+                RemoveCollectedLetter(indicator);
                 if(gObjects.Length != 0){
                     startTime = Time.time;
                     comeco = IA.transform.position;
@@ -199,20 +200,22 @@ public class WordsScript : MonoBehaviour
     {
         foreach (GameObject item in prefabs)
         {
-            // Obtendo o Collider do componente filho
-            BoxCollider2D collider = item.transform.gameObject.GetComponent<BoxCollider2D>();
-            // Obtendo o componente filho
-            TextMeshProUGUI conteudo = item.GetComponentInChildren<TextMeshProUGUI>();
-            // Obtendo o conteúdo existente no componente filho
-            string sConteudo = conteudo.text.ToLower();
-            // Se não for a letra desejada, zere o collider, caso contrário, aumente-o
-            if (!sConteudo.Equals(atual.Portugues[posLetraAtual].ToString().ToLower()))
-            {
-                collider.size = new Vector2(0, 0);
-            }
-            else
-            {
-                collider.size = new Vector2(0.5F, 0.5F);
+            if (item != null) {
+                // Obtendo o Collider do componente filho
+                BoxCollider2D collider = item.transform.gameObject.GetComponent<BoxCollider2D>();
+                // Obtendo o componente filho
+                TextMeshProUGUI conteudo = item.GetComponentInChildren<TextMeshProUGUI>();
+                // Obtendo o conteúdo existente no componente filho
+                string sConteudo = conteudo.text.ToLower();
+                // Se não for a letra desejada, zere o collider, caso contrário, aumente-o
+                if (!sConteudo.Equals(atual.Portugues[posLetraAtual].ToString().ToLower()))
+                {
+                    collider.size = new Vector2(0, 0);
+                }
+                else
+                {
+                    collider.size = new Vector2(0.5F, 0.5F);
+                }
             }
         }
     }
@@ -220,7 +223,7 @@ public class WordsScript : MonoBehaviour
     // Função que irá remover de Prefabs a letra que acabou de ser coletada
     // Em "LetterScript", quando há contato entre o player e a letra ela será deletada
     // Portanto, basta procurar pelo item que está nulo
-    private void RemoveCollectedLetter()
+    public void RemoveCollectedLetter(int indicator)
     {
         GameObject objetoRemovido = new GameObject();
         foreach (GameObject item in prefabs)
@@ -230,9 +233,13 @@ public class WordsScript : MonoBehaviour
         }
         // TextMeshProUGUI txt = objetoRemovido.GetComponentInChildren<TextMeshProUGUI>();
         // Debug.Log(txt.text);
-        prefabs.Remove(objetoRemovido);
+        //prefabs.Remove(objetoRemovido);
         // Atualizando as letras coletadas pelo robson
-        letrasRobson.text += atual.Portugues[posLetraAtual];
+        if(indicator == 1) {
+            letrasRobson.text += atual.Portugues[posLetraAtual];
+        } else if (indicator == 0) {
+            Debug.Log(atual.Portugues[posLetraAtual]);
+        }
         posLetraAtual++;
         ColliderSizeUpdate();
     }
