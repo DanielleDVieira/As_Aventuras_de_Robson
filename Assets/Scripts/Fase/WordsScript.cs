@@ -36,6 +36,7 @@ public class WordsScript : MonoBehaviour
 
     // Fase de Vitoria
     public GameObject VictoryMenu;
+    int somVitoria = 0;
 
     // Para saber qual é a Word "sorteada"
     Word atual;
@@ -123,6 +124,11 @@ public class WordsScript : MonoBehaviour
         // Aparecer tela de Vitoria
         if (letrasRobson.text == atual.Portugues)
         {
+            // Gambiarra para tocar o efeito sonoro da vitoria apenas uma vez (so no 1o Update() pos coletar todas letras)
+            somVitoria++;
+            if(somVitoria == 1)
+                SoundManagerScript.PlaySound("victory");
+
             VictoryMenu.SetActive(true);
             Time.timeScale = 0;
         } else { 

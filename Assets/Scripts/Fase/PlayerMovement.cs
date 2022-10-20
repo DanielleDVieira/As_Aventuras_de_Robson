@@ -20,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
     public float runSpeed = 40f;
 
     public GameObject DeathMenu;
+    int somDerrota = 0;
+
     public GameObject LimiteInferior;
     public Joystick Joystick;
 
@@ -34,6 +36,13 @@ public class PlayerMovement : MonoBehaviour
         // O personagem deve morrer se cair para fora dos limites do mapa
         if (controller.transform.position.y <= LimiteInferior.transform.position.y)
         {
+            // Gambiarra para tocar o efeito sonoro da derrota apenas uma vez (so no 1o Update() pos morte)
+            somDerrota++;
+            if(somDerrota == 1){
+                SoundManagerScript.audioSrc.Stop();
+                SoundManagerScript.PlaySound("defeat");
+            }
+
             DeathMenu.SetActive(true);
             Time.timeScale = 0;
         }
@@ -57,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
         // Pré-setado na unity: Jump = Espaço
         if (Input.GetButtonDown("Jump") || Joystick.Vertical >= 0.5)
         {
+            SoundManagerScript.PlaySound("jump");
             jump = true;
             // Setando na variável da animação de pulo o valor positivo quando clicarmos para pular    
             animator.SetBool("IsJumping", true);
