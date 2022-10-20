@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
         if (controller.transform.position.y <= LimiteInferior.transform.position.y)
         {
             DeathMenu.SetActive(true);
+            Time.timeScale = 0;
         }
 
         // Recebendo valor do input das teclas horizontais 

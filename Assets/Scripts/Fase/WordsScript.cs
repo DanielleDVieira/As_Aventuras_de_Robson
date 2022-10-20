@@ -42,6 +42,7 @@ public class WordsScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         Generator = new System.Random();
         // "Geração" de possíveis Palavras 
         Words = new WordList();
@@ -113,6 +114,7 @@ public class WordsScript : MonoBehaviour
         if (letrasRobson.text == atual.Portugues)
         {
             VictoryMenu.SetActive(true);
+            Time.timeScale = 0;
         } else { 
             // Pegando a quantidade total de prefabs existentes (Baseando-se na quantidade de elementos com a tag "Letra")
             GameObject[] gObjects = GameObject.FindGameObjectsWithTag("Letra");

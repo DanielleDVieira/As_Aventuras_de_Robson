@@ -8,7 +8,6 @@ public class menuScript : MonoBehaviour
 
     public void loadScene(string scene)
     {
-        Time.timeScale = 1;
         SceneManager.LoadScene(scene);
     }
 
