@@ -33,7 +33,7 @@ public static class PathFinding
             removido = fila.First();
 
             
-            Debug.Log("Removido: " + removido);
+            //Debug.Log("Removido: " + removido);
             // Remover vértice da primeira posição da lista
             fila.RemoveAt(0);
 
