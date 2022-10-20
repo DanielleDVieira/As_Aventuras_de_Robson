@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Text;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,6 +10,14 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController2D controller;
     // Relacionado ao controle de animação do Player
     public Animator animator;
+
+    // Variavel para guardar se botão de ataque está pressionado
+    public GameObject _button;
+    ButtonAtack _press;
+
+    // Variavel que contem as letras coletadas do Robson e IA
+    WordsScript wordScript;
+
     // Variável que receberá o "valor" do movimento horizontal
     // Lembrete: "Input.GetAxisRaw("Horizontal") retorna :
     //           -> -1 caso player andar para esquerda
@@ -22,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject DeathMenu;
     int somDerrota = 0;
 
+    private AudioSource music;
+
     public GameObject LimiteInferior;
     public Joystick Joystick;
 
@@ -29,6 +40,12 @@ public class PlayerMovement : MonoBehaviour
     bool jump = false;
     // Responsável pelo controle de agachar
     bool crouch = false;
+
+    void Start() {
+        _press = _button.GetComponent<ButtonAtack>();
+        wordScript = GameObject.FindGameObjectWithTag("Script").GetComponent<WordsScript>();
+        music = GameObject.FindGameObjectWithTag("Music").GetComponent<AudioSource>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -39,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
             // Gambiarra para tocar o efeito sonoro da derrota apenas uma vez (so no 1o Update() pos morte)
             somDerrota++;
             if(somDerrota == 1){
-                SoundManagerScript.audioSrc.Stop();
+                music.Stop();
                 SoundManagerScript.PlaySound("defeat");
             }
 
@@ -101,5 +118,41 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
+    }
+
+    /*
+        Quando o Robson colidir com a IA
+    */
+    private void OnCollisionEnter2D(Collision2D collision){
+        // Se colidido com a IA
+        if(collision.gameObject.CompareTag("IA")) {
+
+            // Verificar se botão de ataque está pressionado
+            if(_press.pressButtonAtack) {
+                int posAux = 0;
+                int pos = -1;
+
+                StringBuilder auxRobson = new StringBuilder(wordScript.letrasRobson.text);
+                StringBuilder auxIA = new StringBuilder(wordScript.letrasIA.text);
+
+                // Percorrer a palavra do Robson procurando uma posição com _
+                while(posAux < wordScript.letrasRobson.text.Length) {
+                    // Se encontrar uma posição com _ guardar esta posicao
+                    if(auxRobson[posAux] == '_') {
+                        pos = posAux;
+                        posAux = wordScript.letrasRobson.text.Length;
+                    }
+                    posAux++;
+                }   
+
+                // Se encontrar alguma posição válida para mudar, alterar letrasRobson e letrasIA
+                if (pos != -1) {
+                    auxRobson[pos] = auxIA[pos];
+                    auxIA[pos] = '_';
+                    wordScript.letrasRobson.text = auxRobson.ToString();
+                    wordScript.letrasIA.text = auxIA.ToString();
+                }
+            } 
+        }
     }
 }

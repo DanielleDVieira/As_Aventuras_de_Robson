@@ -22,6 +22,7 @@ public class LetterScript : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision){
         if(collision.gameObject.CompareTag("Player")) {
             // Destruir letra
+            SoundManagerScript.PlaySound("playerCollect");
             Destroy(this.gameObject);
             word.indicator = 1;
             //word.RemoveCollectedLetter(1);    
@@ -32,6 +33,7 @@ public class LetterScript : MonoBehaviour
 
         } else if(collision.gameObject.CompareTag("IA")) {
             // Destruir letra
+            SoundManagerScript.PlaySound("enemyCollect");
             Debug.Log("Destrui :)");
             Destroy(this.gameObject);
             word.indicator = 0;
