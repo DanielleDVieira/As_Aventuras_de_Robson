@@ -3960,11 +3960,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 483770976}
   animator: {fileID: 483770980}
-<<<<<<< HEAD
-  _button: {fileID: 0}
-=======
   _button: {fileID: 593670388}
->>>>>>> 44d52c9c8f42e8e36b206fae31c414619e291629
   runSpeed: 40
   DeathMenu: {fileID: 201743381}
   LimiteInferior: {fileID: 1880673395}
