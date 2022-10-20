@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System.Linq;
 using System;
+using System.Text;
 
 public class WordsScript : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class WordsScript : MonoBehaviour
     public TextMeshProUGUI textMesh;
     // Letras coletadas pelo robson
     public TextMeshProUGUI letrasRobson;
+    // Letras coletadas pela IA
+    public TextMeshProUGUI letrasIA;
     // Lista de Palavras possíveis
     public WordList Words;
     // Prefab que será fabricado (Pefrab da letra)
@@ -55,11 +58,12 @@ public class WordsScript : MonoBehaviour
         // Será uma palavra aleatória <
         atual = Words.Next();
 
+        // Iniciar o jogo com as letras coletadas pela IA e Robson sem nada
+        letrasRobson.text = "";
+        letrasIA.text = "";
+
         // Atualizando título com a palavra em inglês sorteada
         textMesh.text = atual.Ingles;
-
-        // Iniciar o jogo com as letras coletadas pelo robson sem nada
-        letrasRobson.text = "";
 
         // Criar lista com as posições do grid que possuem valor 1
         List<Vector3> worldPos = getAxis();
@@ -72,6 +76,12 @@ public class WordsScript : MonoBehaviour
         // E instanciando um prefab para cada letra
         for (int i = 0; i < atual.Portugues.Length; i++)
         {
+            // Colocar todas as posições da palavra em português como _ do robson
+            letrasRobson.text += '_';
+
+            // Colocar todas as posições da palavra em português como _ da IA
+            letrasIA.text += '_';
+
             // Pegar posição aleatória da lista worldPos para setar as posições onde ficará as letras da palavra em português
             posAleatoria = verificaPosicaoAleatoria(worldPos, posicaoAleatoriaLetras, Generator);
             posicaoAleatoriaLetras.Add(posAleatoria);
@@ -105,7 +115,6 @@ public class WordsScript : MonoBehaviour
         journeyLength = Vector3.Distance(comeco, gObjects[0].transform.position);
 
         menoresCaminhos = PathFinding.buscaLargura(comeco, gObjects[0].transform.position, grid);
-
     }
 
     // Update is called once per frame
@@ -133,7 +142,6 @@ public class WordsScript : MonoBehaviour
                     menoresCaminhos = PathFinding.buscaLargura(comeco, gObjects[0].transform.position, grid);
                     journeyLength = Vector3.Distance(comeco, gObjects[0].transform.position);
                 }
-                
             }
             if(gObjects.Length != 0) {
                 comeco = IA.transform.position;
@@ -144,9 +152,6 @@ public class WordsScript : MonoBehaviour
                     menoresCaminhos.RemoveAt(0);
                 }
             }
-
-
-        
     }
 
     public GameObject getTarget(){
@@ -236,9 +241,20 @@ public class WordsScript : MonoBehaviour
         //prefabs.Remove(objetoRemovido);
         // Atualizando as letras coletadas pelo robson
         if(indicator == 1) {
-            letrasRobson.text += atual.Portugues[posLetraAtual];
+            // Não consigo acessar uma posição específica da string, então por isso precisei do StringBuilder
+            // Fazer uma cópia de como tá o letrasRobson atualmente
+            StringBuilder aux = new StringBuilder(letrasRobson.text);
+            // Alterar a letra na posição que preciso que ele pegou
+            aux[posLetraAtual] = atual.Portugues[posLetraAtual];
+            // Passar a palavra atualizada para letrasRobson
+            letrasRobson.text = aux.ToString();;
         } else if (indicator == 0) {
-            Debug.Log(atual.Portugues[posLetraAtual]);
+            // Fazer uma cópia de como tá o letrasIA atualmente
+            StringBuilder aux = new StringBuilder(letrasIA.text);
+            // Alterar a letra na posição que preciso que ele pegou
+            aux[posLetraAtual] = atual.Portugues[posLetraAtual];
+            // Passar a palavra atualizada para letrasIA
+            letrasIA.text = aux.ToString();;
         }
         posLetraAtual++;
         ColliderSizeUpdate();
