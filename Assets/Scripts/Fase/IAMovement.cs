@@ -3,23 +3,55 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class IAMovement : MonoBehaviour
-{ 
-    /*
-    public GameObject obj;
+{
     private WordsScript wordsScript;
-    private Grid grid;
+
+    // Relacionado ao controle de animação da IA
+    public Animator animator;
+
+    // Variável que receberá o "valor" do movimento horizontal
+    float horizontalMove = 0f;
+
+    // Resposável pela velocidade do movimento do usuário
+    public float runSpeed = 40f;
+
+    // Responsável pelo controle de voo
+    bool fly = false;
+
+    // Responsável pelo controle de agachar
+    bool crouch = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        wordsScript = obj.GetComponent<WordsScript>();
-        grid = wordsScript.getGrid();
-        Debug.Log("tamanho: " + grid.GetValue(31, 4));
+        wordsScript = GameObject.FindGameObjectWithTag("Script").GetComponent<WordsScript>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // Setando na variável da animação de corrida o valor absoluto do movimento horizontal
+        animator.SetFloat("Speed", Mathf.Abs(1.0f));
+
+        if (wordsScript.getGrid().GetValue(this.transform.position) == 2)
+        {
+            fly = true;
+            animator.SetBool("IsJumping", true);
+        } else {
+            animator.SetBool("IsJumping", false);
+        }
     }
-    */
+
+    // Função necessária para a animação
+    public void OnLanding()
+    {
+        fly = false;
+        animator.SetBool("IsJumping", false);
+    }
+
+    // Função necessária para a animação
+    public void OnCrouching(bool isCrouching)
+    {
+        animator.SetBool("IsCrouching", isCrouching);
+    }
 };

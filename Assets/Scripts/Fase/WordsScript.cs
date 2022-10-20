@@ -23,7 +23,7 @@ public class WordsScript : MonoBehaviour
     // Lista de todos Prefabs criados
     private List<GameObject> prefabs;
     // Instanciando objeto grid
-    private Grid grid;
+    public Grid grid;
 
     float startTime;
     float journeyLength;
@@ -89,7 +89,7 @@ public class WordsScript : MonoBehaviour
             // Setar as letras na posição aleatória
             GameObject prefab_gameObject = Instantiate(
                 prefab,
-                (new Vector3(posAleatoria[0], posAleatoria[1], posAleatoria[2]) + new Vector3(1f, 1f) * .5f),
+                (new Vector3(posAleatoria[0], posAleatoria[1], posAleatoria[2]) + new Vector3(1f, 1f) * 0.5f),
                 Quaternion.identity,
                 transform
             );
