@@ -49,11 +49,13 @@ public class Testing : MonoBehaviour
 
     // Salvar text em arquivo .txt
     private void salvaGridArquivo(string text) {
+        /*
         string myfile = @"grid3.txt";
         if (!File.Exists(myfile)) {
             using(StreamWriter sw = File.AppendText(myfile)){
                 sw.WriteLine(text);
             }
         }
+        */
     }
 }

@@ -22,6 +22,15 @@ public class WordList
         Words = new List<Word>();
         DataPath = Application.dataPath;
 
+        Words.Add(new Word("Rice", "Arroz"));
+        Words.Add(new Word("Car", "Carro"));
+        Words.Add(new Word("Rain", "Chuva"));
+        Words.Add(new Word("Dog", "Cachorro"));
+        Words.Add(new Word("River", "Rio"));
+        Words.Add(new Word("Ocean", "Oceano"));
+        Words.Add(new Word("Book", "Livro"));
+
+        /*
         var reader = new StreamReader(DataPath + "/Words.csv");
         var lines = reader.ReadToEnd().TrimEnd().Split("\n");
 
@@ -31,9 +40,11 @@ public class WordList
             Debug.Log($"Word: {temp[0]} {temp[1]}");
             Words.Add(new Word(temp[0], temp[1]));
         }
+        */
     }
 
-    public Word Next() {
+    public Word Next()
+    {
         return Words[Generator.Next(Words.Count)];
     }
 }
