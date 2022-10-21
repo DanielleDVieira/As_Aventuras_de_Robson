@@ -10,7 +10,7 @@ public class IAMovement : MonoBehaviour
     public Animator animator;
 
     // Variável que receberá o "valor" do movimento horizontal
-    float horizontalMove = 0f;
+    //float horizontalMove = 0f;
 
     // Resposável pela velocidade do movimento do usuário
     public float runSpeed = 40f;
@@ -18,8 +18,7 @@ public class IAMovement : MonoBehaviour
     // Responsável pelo controle de voo
     bool fly = false;
 
-    // Responsável pelo controle de agachar
-    bool crouch = false;
+    public bool right = true;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +32,7 @@ public class IAMovement : MonoBehaviour
         // Setando na variável da animação de corrida o valor absoluto do movimento horizontal
         animator.SetFloat("Speed", Mathf.Abs(1.0f));
 
-        if (wordsScript.getGrid().GetValue(this.transform.position) == 2)
+        if (wordsScript.getGrid().GetValue(transform.position) == 2)
         {
             fly = true;
             animator.SetBool("IsJumping", true);
@@ -48,10 +47,11 @@ public class IAMovement : MonoBehaviour
         fly = false;
         animator.SetBool("IsJumping", false);
     }
-
-    // Função necessária para a animação
-    public void OnCrouching(bool isCrouching)
-    {
-        animator.SetBool("IsCrouching", isCrouching);
+    
+    public void Flip() {
+        right = !right;
+        Vector3 theScale = transform.localScale;
+		theScale.x *= -1;
+		transform.localScale = theScale;
     }
 };

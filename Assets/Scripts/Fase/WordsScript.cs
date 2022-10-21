@@ -306,11 +306,19 @@ public class WordsScript : MonoBehaviour
     }
 
     private void movement(Vector3 destino) {
-        
-        float distCoverage = (Time.time - startTime) * 1f;
+        float distCoverage = (Time.time - startTime) * 0.7f;
         float fractionOfJourney = distCoverage / journeyLength;
-        if(IA.transform.position != destino){
+
+        if(IA.transform.position != destino) {
             IA.transform.position = Vector3.Lerp(comeco, destino, fractionOfJourney);
+
+            var iamov = IA.GetComponent<IAMovement>();
+            
+            if (comeco.x > IA.transform.position.x && iamov.right) { // andando pra esquerda
+                iamov.Flip();
+            } else if (comeco.x < IA.transform.position.x && !iamov.right) {
+                iamov.Flip();
+            }
         }
         
         //IA.transform.position = Vector3.Lerp(comeco, destino, fractionOfJourney);
