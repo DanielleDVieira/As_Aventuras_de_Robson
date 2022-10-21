@@ -29,11 +29,8 @@ public static class PathFinding
 
         // Enquanto fila não estiver vazia
         while(fila.Count != 0) {
-
             removido = fila.First();
 
-            
-            //Debug.Log("Removido: " + removido);
             // Remover vértice da primeira posição da lista
             fila.RemoveAt(0);
 
@@ -41,9 +38,8 @@ public static class PathFinding
             adj = grid.findNeighbor(removido);
 
             // Se o vértice removido for o meu destino paro o while
-            if (removido == destino) { // 14.5 -0.5 
+            if (removido == destino) {
                 fila.Clear();
-                    
             }
             // Adicionar vértices não visitados da lista de adjacência do vértice
             foreach(Vector3 node in adj){
@@ -54,16 +50,10 @@ public static class PathFinding
                     // Adicionar vértice na fila para caminhamento
                     fila.Add(node);
                     // Adicionar filho e pai
-
-                    //Debug.Log("NodeParents: " + node + removido);
                     nodeParents.Add(node, removido); 
                 }
-                
             }
-            
-                
         }
-        Debug.Log("Destino: " + destino);
         // Encontrar no nodeParets o menor caminho
         Vector3 aux = nodeParents[destino];
 
@@ -79,16 +69,8 @@ public static class PathFinding
             // Adicionar pai em menorCaminho
             menorCaminho.Add(aux);
         }
-
         // Como começou a adicionar a última posição no início, é necessário reverse
         menorCaminho.Reverse();
-
-        /*
-        Debug.Log("Menor caminho:");
-        foreach(Vector3 node in menorCaminho){
-            Debug.Log(node);
-        }
-        */
 
         return menorCaminho;
     }
