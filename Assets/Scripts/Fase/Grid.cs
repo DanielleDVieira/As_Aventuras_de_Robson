@@ -906,7 +906,6 @@ public class Grid
         // Ignorar quadrados fora do grid
         if (x >= 0 && y >= 0 && x < width && y < height) {
             
-            
             /*
             // Alterar valores caso utilize o mouse
             if (gridArray[x, y] == 0) {
@@ -922,7 +921,7 @@ public class Grid
 
             // Alterar valores os setando manualmente 
             gridArray[x, y] = value;
-            //debugTextArray[x, y].text = gridArray[x, y].ToString(); */
+            //debugTextArray[x, y].text = gridArray[x, y].ToString();
         }
     }
 

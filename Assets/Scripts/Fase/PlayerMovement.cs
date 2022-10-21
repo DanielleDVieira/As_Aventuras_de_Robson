@@ -166,6 +166,8 @@ public class PlayerMovement : MonoBehaviour
 
                 // Se encontrar alguma posição válida para mudar, alterar letrasRobson e letrasIA
                 if (pos != -1) {
+                    SoundManagerScript.PlaySound("damage");
+
                     auxIA[pos] = auxRobson[pos];
                     auxRobson[pos] = '_';
                     wordScript.letrasRobson.text = auxRobson.ToString();
