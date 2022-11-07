@@ -142,5 +142,13 @@ public class CharacterController2D : MonoBehaviour
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
+
+		GameObject[] foo = GameObject.FindGameObjectsWithTag("Seta");
+		foreach(GameObject el in foo) {
+			Vector3 scale = el.transform.localScale;
+			scale.x *= -1;
+			el.transform.localScale = scale;
+		}
+
 	}
 }
