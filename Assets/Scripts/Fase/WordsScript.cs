@@ -160,8 +160,18 @@ public class WordsScript : MonoBehaviour
         }     
     }
 
+    /*
+        Função que retornará a próxima letra a ser coletada
+    */
     public GameObject getTarget(){
-        return this.prefabs[0];
+        GameObject obj = null;
+        for(int i = 0; i < prefabs.Count; i++) {
+            if(prefabs[i] != null){
+                obj = prefabs[i];
+                i = prefabs.Count;
+            } 
+        }
+        return obj;
     }
 
     public int getPrefabsSize(){

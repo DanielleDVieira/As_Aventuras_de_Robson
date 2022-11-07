@@ -5,35 +5,39 @@ using TMPro;
 
 public class TargetIndicator : MonoBehaviour
 {
-
-    int tamanhoAntigo;
-    //public GameObject obj;
     private WordsScript target;
+    // Hide distance que deverá ser setada 
     public float HideDistance;
+
 
     void Start(){
         target = GameObject.FindGameObjectWithTag("Script").GetComponent<WordsScript>();
-        //tamanhoAntigo = target.getPrefabsSize();
     }
 
     void Update(){
-        //int tamanhoAtual = target.getPrefabsSize();
-        //target = obj.GetComponent<WordsScript>();
+        // Acessando o script, para então, poder pegar a próxima letra que deverá ser apontada
         GameObject firstChild = target.getTarget();
 
+        // Quando retornar null, significa que todas as letras já foram coletadas
         if(firstChild != null) {
+            // Calculando a distância da letra para a posição do player
             Vector3 dir = firstChild.transform.position - transform.position;
+            // Caso essa distância seja menor do que o hideDistance, desapareça com o indicador
             if(dir.magnitude < HideDistance) {
                 SetChildrenActive(false);
             } else {
                 SetChildrenActive(true);
+
+                // Calculando a rotação do indicador para a próxima letra a ser coletada
                 float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
                 transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
             }
 
-
-           
+        } else {
+            // Caso não tenha mais letra para ser coletada, indicador some
+            // (Pode ser substituído com um "destroy")
+            SetChildrenActive(false);
         }
 
     }
@@ -43,11 +47,4 @@ public class TargetIndicator : MonoBehaviour
             child.gameObject.SetActive(value);
         }
     }
-
-
-    private List<GameObject> Components(){
-        GameObject firstChild = target.transform.GetChild(0).gameObject;
-        return null;
-    }
-
 }
