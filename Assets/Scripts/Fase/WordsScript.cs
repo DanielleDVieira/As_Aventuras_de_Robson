@@ -85,6 +85,7 @@ public class WordsScript : MonoBehaviour
 
             // Pegar posição aleatória da lista worldPos para setar as posições onde ficará as letras da palavra em português
             posAleatoria = verificaPosicaoAleatoria(worldPos, posicaoAleatoriaLetras, Generator);
+            //posAleatoria = worldPos[i + 20];
             posicaoAleatoriaLetras.Add(posAleatoria);
             // Setar as letras na posição aleatória
             GameObject prefab_gameObject = Instantiate(
@@ -147,6 +148,7 @@ public class WordsScript : MonoBehaviour
 
                     menoresCaminhos = PathFinding.buscaLargura(comeco, gObjects[0].transform.position, grid);
                     journeyLength = Vector3.Distance(comeco, gObjects[0].transform.position);
+                    
                 }
             }
             if(gObjects.Length != 0) {

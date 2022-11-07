@@ -944,4 +944,18 @@ public class Grid
         GetXY(worldPosition, out x, out y);
         return GetValue(x, y);
     }
+
+    public List<Vector3> allPossible(){
+        Vector3 pos = new Vector3();
+        List<Vector3> possible = new List<Vector3>();
+        for(int i = 0; i < gridArray.GetLength(0); i++){
+            for(int j = 0; j < gridArray.GetLength(1); j++){
+                if(GetValue(i, j) != 0){
+                    pos = GetWorldPosition(i, j);
+                    possible.Add(new Vector3(pos.x + 0.5f, pos.y + 0.5f, 0.0f));
+                }
+            }
+        }
+        return possible;
+    }
 }

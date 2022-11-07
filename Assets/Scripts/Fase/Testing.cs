@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
@@ -43,7 +43,7 @@ public class Testing : MonoBehaviour
             grid.GetXY(UtilsClass.GetMouseWorldPosition(), out x, out y);
             salvaGridArquivo("SetValue("+x+", "+y+", "+grid.GetValue(UtilsClass.GetMouseWorldPosition())+");");
             Debug.Log(grid.GetValue(UtilsClass.GetMouseWorldPosition()));
-            */
+            
         }
     }
 
@@ -56,6 +56,7 @@ public class Testing : MonoBehaviour
                 sw.WriteLine(text);
             }
         }
-        */
+        
     }
 }
+*/
