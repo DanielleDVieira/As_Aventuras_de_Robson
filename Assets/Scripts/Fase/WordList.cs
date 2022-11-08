@@ -11,12 +11,14 @@ public class WordList
     List<Word> words;
     SavedGame saved;
     string dataPath;
+    string savePath;
 
     public WordList()
     {
         generator = new System.Random();
         words = new List<Word>();
         dataPath = Application.dataPath;
+        savePath = Application.persistentDataPath;
     }
 
     // Carregar as palavras do arquivo de registro para a memória.
@@ -27,9 +29,9 @@ public class WordList
         var lines = new StreamReader(dataPath + "/Words.csv").ReadToEnd().TrimEnd().Split("\n");
 
         // Se o arquivo 'Saved.json' existir, então devemos carregar o progresso dele.
-        if (File.Exists(dataPath + "/Saved.json"))
+        if (File.Exists(savePath + "/Saved.json"))
         {
-            using (var sr = new StreamReader(dataPath + "/Saved.json"))
+            using (var sr = new StreamReader(savePath + "/Saved.json"))
             {
                 var json = sr.ReadToEnd().TrimEnd();
                 saved = JsonUtility.FromJson<SavedGame>(json);
@@ -81,7 +83,7 @@ public class WordList
     {
         string json = JsonUtility.ToJson(saved);
 
-        using (var sw = new StreamWriter(dataPath + "/Saved.json"))
+        using (var sw = new StreamWriter(savePath + "/Saved.json"))
         {
             sw.Write(json);
         }

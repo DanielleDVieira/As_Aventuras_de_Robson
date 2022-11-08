@@ -14,9 +14,9 @@ public class menuScript : MonoBehaviour
 
     public void NewGame()
     {
-        if (File.Exists(Application.dataPath + "/Saved.json"))
+        if (File.Exists(Application.persistentDataPath + "/Saved.json"))
         {
-            File.Delete(Application.dataPath + "/Saved.json");
+            File.Delete(Application.persistentDataPath + "/Saved.json");
         }
 
         loadScene("Fase");
