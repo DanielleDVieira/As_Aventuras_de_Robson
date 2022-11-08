@@ -128,7 +128,10 @@ public class WordsScript : MonoBehaviour
             // Gambiarra para tocar o efeito sonoro da vitoria apenas uma vez (so no 1o Update() pos coletar todas letras)
             somVitoria++;
             if(somVitoria == 1)
+                Words.RemoveAndSave(atual);
                 SoundManagerScript.PlaySound("victory");
+
+            // Remover a palavra anterior do registro e salvar progresso do jogo em arquivo.
 
             VictoryMenu.SetActive(true);
             Time.timeScale = 0;
