@@ -4336,6 +4336,7 @@ MonoBehaviour:
   textMesh: {fileID: 607613704}
   letrasRobson: {fileID: 2139928117}
   letrasIA: {fileID: 489329563}
+  player: {fileID: 483770972}
   prefab: {fileID: 7464743300883878803, guid: 6ba2903063f948047a12ff5b43593c07, type: 3}
   indicator: 0
   IA: {fileID: 161954849}
