@@ -18,6 +18,8 @@ public class WordsScript : MonoBehaviour
     public TextMeshProUGUI letrasIA;
     // Lista de Palavras possíveis
     public WordList Words;
+    // Player Gameobject
+    public GameObject player;
     // Prefab que será fabricado (Pefrab da letra)
     public GameObject prefab;
     // Lista de todos Prefabs criados
@@ -25,12 +27,13 @@ public class WordsScript : MonoBehaviour
     // Instanciando objeto grid
     public Grid grid;
 
+
     float startTime;
     float journeyLength;
     Vector3 comeco;
     List<Vector3> menoresCaminhos;
     public int indicator;
-
+    private Vector3 playerMovement;
     // Objeto que sera a IA
     public GameObject IA;
 
@@ -117,6 +120,7 @@ public class WordsScript : MonoBehaviour
         journeyLength = Vector3.Distance(comeco, gObjects[0].transform.position);
 
         menoresCaminhos = PathFinding.buscaLargura(comeco, gObjects[0].transform.position, grid);
+        playerMovement = player.transform.position;
     }
 
     // Update is called once per frame
@@ -151,6 +155,7 @@ public class WordsScript : MonoBehaviour
                     
                 }
             }
+            // Caso ainda tenha letras a serem coletadas no mundo o NOSBOR vai ir até elas para coletar
             if(gObjects.Length != 0) {
                 comeco = IA.transform.position;
                 
@@ -158,8 +163,25 @@ public class WordsScript : MonoBehaviour
                 movement(pos);
                 if (IA.transform.position == pos)
                     menoresCaminhos.RemoveAt(0);
+            } else {
+                // Correr atrás do robson quando as letras no mundo acabarem e o robson não 
+
+                // Posição onde está o NOSBOR
+                comeco = IA.transform.position;
+                
+                Vector3 player = posRobson();
+                if(player != playerMovement){
+                    playerMovement = player;
+                    menoresCaminhos = PathFinding.buscaLargura(comeco, player, grid);
+                    journeyLength = Vector3.Distance(comeco, player);
+                } else {
+                    pos = menoresCaminhos.First();
+                    movement(pos);
+                    if (IA.transform.position == pos)
+                        menoresCaminhos.RemoveAt(0);
+                }
             }
-        }     
+        } 
     }
 
     /*
@@ -297,6 +319,35 @@ public class WordsScript : MonoBehaviour
         // TODO atualizar quando a IA encostar na letra acrescentar a letra no placar dela 
         // e deixar um espaço em branco no placar do robson
     }
+
+    public Vector3 posRobson (){
+        // Todas as posições da grid no mundo real que contenham valor na grid de 1 e 2
+        List<Vector3> possible = grid.allPossible(); // != 0
+
+        // Posição do Robson no mundo
+        Vector3 posPlayer = player.transform.position;
+        
+        // Como a posição dele pode vir quebrada, exemplo 10.12, então convertar para inteiro e depois somar 0.5
+        float x = Convert.ToInt32(posPlayer.x) + 0.5f;
+        float y = Convert.ToInt32(posPlayer.y) + 0.5f;
+        Vector3 pos = new Vector3(x, y, posPlayer.z); // Centro da grid
+        float menorDistancia = 100f;
+        float atualDistancia = 0f;
+        
+        Vector3 resp = new Vector3(0,0,0);
+
+        // Todas as grids encontra a que possui a menor distância 
+        // comparado com a posição atual de robson
+        foreach ( Vector3 elem in possible ) {
+            atualDistancia = Vector3.Distance(pos, elem);
+            if(atualDistancia < menorDistancia) {
+                menorDistancia = atualDistancia;
+                resp = elem;
+            }
+        }
+        return resp;
+    }
+
 
     /*
         Função que retorna uma lista Vector3 que tem todas as posições da grid com valor 1
