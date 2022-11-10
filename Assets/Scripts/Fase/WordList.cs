@@ -26,7 +26,7 @@ public class WordList
     {
         saved = SavedGame.Load();
 
-        var lines = new StreamReader(dataPath + "/Words.csv").ReadToEnd().TrimEnd().Split("\n");
+        var lines = Resources.Load<TextAsset>("Words").text.TrimEnd().Split("\n");
 
         if (saved.words.Count >= lines.Count() - 1)
         {
