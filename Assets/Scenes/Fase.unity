@@ -3085,11 +3085,11 @@ GameObject:
   m_Component:
   - component: {fileID: 161954851}
   - component: {fileID: 161954850}
-  - component: {fileID: 161954857}
   - component: {fileID: 161954853}
   - component: {fileID: 161954854}
   - component: {fileID: 161954855}
   - component: {fileID: 161954856}
+  - component: {fileID: 161954857}
   m_Layer: 3
   m_Name: IA
   m_TagString: IA
@@ -4812,7 +4812,6 @@ MonoBehaviour:
   indicator: 0
   IA: {fileID: 161954849}
   VictoryMenu: {fileID: 1371710062}
-  targetFps: 30
 --- !u!114 &533970316
 MonoBehaviour:
   m_ObjectHideFlags: 0

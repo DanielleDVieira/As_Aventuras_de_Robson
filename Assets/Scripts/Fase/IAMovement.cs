@@ -15,9 +15,6 @@ public class IAMovement : MonoBehaviour
     // Resposável pela velocidade do movimento do usuário
     public float runSpeed = 40f;
 
-    // Responsável pelo controle de voo
-    bool fly = false;
-
     public bool right = true;
 
     // Start is called before the first frame update
@@ -34,7 +31,6 @@ public class IAMovement : MonoBehaviour
 
         if (wordsScript.getGrid().GetValue(transform.position) == 2)
         {
-            fly = true;
             animator.SetBool("IsJumping", true);
         } else {
             animator.SetBool("IsJumping", false);
@@ -44,7 +40,6 @@ public class IAMovement : MonoBehaviour
     // Função necessária para a animação
     public void OnLanding()
     {
-        fly = false;
         animator.SetBool("IsJumping", false);
     }
     

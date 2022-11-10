@@ -12,6 +12,9 @@ public class PlayerMovement : MonoBehaviour
     // Relacionado ao controle de animação do Player
     public Animator animator;
 
+    // Relacionado ao controle de animação do inimigo
+    private Animator iaAnimator;
+
     // Variavel para guardar se botão de ataque está pressionado
     public GameObject _button;
     ButtonAtack _press;
@@ -42,7 +45,8 @@ public class PlayerMovement : MonoBehaviour
     // Responsável pelo controle de agachar
     bool crouch = false;
 
-    void Start() {
+    void Start()
+    {
         _press = _button.GetComponent<ButtonAtack>();
         wordScript = GameObject.FindGameObjectWithTag("Script").GetComponent<WordsScript>();
         music = GameObject.FindGameObjectWithTag("Music").GetComponent<AudioSource>();
@@ -56,14 +60,15 @@ public class PlayerMovement : MonoBehaviour
         {
             // Gambiarra para tocar o efeito sonoro da derrota apenas uma vez (so no 1o Update() pos morte)
             somDerrota++;
-            if(somDerrota == 1){
+            if (somDerrota == 1)
+            {
                 music.Stop();
                 SoundManagerScript.PlaySound("defeat");
             }
 
             DeathMenu.SetActive(true);
             Time.timeScale = 0;
-        } 
+        }
 
         // Recebendo valor do input das teclas horizontais 
         // Pré-setado na unity: Horizontal = A e D
@@ -100,6 +105,15 @@ public class PlayerMovement : MonoBehaviour
         {
             crouch = false;
         }
+
+        if (_press.pressButtonAtack)
+        {
+            animator.SetBool("IsAttacking", true);
+        }
+        else
+        {
+            animator.SetBool("IsAttacking", false);
+        }
     }
 
     // Função necessária para a animação
@@ -124,9 +138,14 @@ public class PlayerMovement : MonoBehaviour
     /*
         Quando o Robson colidir com a IA
     */
-    private void OnCollisionEnter2D(Collision2D collision){
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        var obj = collision.gameObject;
+
         // Se colidido com a IA
-        if(collision.gameObject.CompareTag("IA")) {
+        if (obj.CompareTag("IA"))
+        {
+            iaAnimator = obj.GetComponent<IAMovement>().animator;
 
             StringBuilder auxRobson = new StringBuilder(wordScript.letrasRobson.text);
             StringBuilder auxIA = new StringBuilder(wordScript.letrasIA.text);
@@ -134,38 +153,50 @@ public class PlayerMovement : MonoBehaviour
             int pos = -1;
 
             // Verificar se botão de ataque está pressionado
-            if(_press.pressButtonAtack) {
-                
+            if (_press.pressButtonAtack)
+            {
                 // Percorrer a palavra do Robson procurando uma posição com _
-                while(posAux < wordScript.letrasRobson.text.Length) {
+                while (posAux < wordScript.letrasRobson.text.Length)
+                {
                     // Se encontrar uma posição com _ guardar esta posicao
-                    if(auxRobson[posAux] == '_') {
+                    if (auxRobson[posAux] == '_')
+                    {
                         pos = posAux;
                         posAux = wordScript.letrasRobson.text.Length;
                     }
                     posAux++;
-                }   
+                }
 
                 // Se encontrar alguma posição válida para mudar, alterar letrasRobson e letrasIA
-                if (pos != -1) {
+                if (pos != -1)
+                {
                     auxRobson[pos] = auxIA[pos];
                     auxIA[pos] = '_';
                     wordScript.letrasRobson.text = auxRobson.ToString();
                     wordScript.letrasIA.text = auxIA.ToString();
                 }
-            } else {
+            }
+            else
+            {
+                Debug.Log("IsAttacking: true");
+                iaAnimator.SetBool("IsAttacking", true);
+
                 // Percorrer a palavra da IA procurando uma posição com _
-                while(posAux < wordScript.letrasIA.text.Length) {
+                while (posAux < wordScript.letrasIA.text.Length)
+                {
                     // Se encontrar uma posição com _ guardar esta posicao
-                    if(auxIA[posAux] == '_') {
+                    if (auxIA[posAux] == '_')
+                    {
                         pos = posAux;
                         posAux = wordScript.letrasIA.text.Length;
                     }
+
                     posAux++;
-                }   
+                }
 
                 // Se encontrar alguma posição válida para mudar, alterar letrasRobson e letrasIA
-                if (pos != -1) {
+                if (pos != -1)
+                {
                     SoundManagerScript.PlaySound("damage");
 
                     auxIA[pos] = auxRobson[pos];
@@ -173,19 +204,29 @@ public class PlayerMovement : MonoBehaviour
                     wordScript.letrasRobson.text = auxRobson.ToString();
                     wordScript.letrasIA.text = auxIA.ToString();
                 }
-            } 
+            }
+
             //Tentar atrasar
-            for (int i = 0; i < 1000; i++);
+            for (int i = 0; i < 1000; i++) ;
+
+            Invoke("EndEnemyAnim", 0.5f); 
         }
+    }
+
+    void EndEnemyAnim(){
+        Debug.Log("IsAttacking: false");
+        iaAnimator.SetBool("IsAttacking", false);
     }
 
     /*
         Verificar se todas as letras foram coletadas pela IA
     */
-    private bool isGameOver() {
+    private bool isGameOver()
+    {
         bool result = false;
 
-        if (wordScript.letrasIA.text == wordScript.atual.Portugues) {
+        if (wordScript.letrasIA.text == wordScript.atual.Portugues)
+        {
             result = true;
         }
         return result;
