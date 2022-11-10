@@ -24,24 +24,12 @@ public class WordList
     // Carregar as palavras do arquivo de registro para a memória.
     public void Load()
     {
-        saved = new SavedGame();
-
         var lines = new StreamReader(dataPath + "/Words.csv").ReadToEnd().TrimEnd().Split("\n");
 
-        // Se o arquivo 'Saved.json' existir, então devemos carregar o progresso dele.
-        if (File.Exists(savePath + "/Saved.json"))
+        if (saved.words.Count >= lines.Count() - 1)
         {
-            using (var sr = new StreamReader(savePath + "/Saved.json"))
-            {
-                var json = sr.ReadToEnd().TrimEnd();
-                saved = JsonUtility.FromJson<SavedGame>(json);
-            }
-
-            if (saved.words.Count >= lines.Count() - 1)
-            {
-                saved = new SavedGame();
-                SaveGame(saved);
-            }
+            saved = new SavedGame();
+            saved.Save();
         }
 
         // Popular o registro com as palavras carregadas.
@@ -75,17 +63,7 @@ public class WordList
     {
         words.Remove(word);
         saved.words.Add(word.Ingles);
-        SaveGame(saved);
+        saved.Save();
         Load();
-    }
-
-    public void SaveGame(SavedGame saved)
-    {
-        string json = JsonUtility.ToJson(saved);
-
-        using (var sw = new StreamWriter(savePath + "/Saved.json"))
-        {
-            sw.Write(json);
-        }
     }
 }
