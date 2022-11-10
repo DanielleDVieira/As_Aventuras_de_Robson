@@ -21,11 +21,15 @@ public class menuConfiguracoes : MonoBehaviour
 
     public void CloseMenuConfig() {
         menuConfig.SetActive(false);
-        menuPause.SetActive(true);
+        if (menuPause) {
+            menuPause.SetActive(true);
+        }
     }
 
     public void OpenMenuConfig() {
-        menuPause.SetActive(false);
+        if (menuPause) {
+            menuPause.SetActive(false);
+        }
         menuConfig.SetActive(true);
     }
 }
