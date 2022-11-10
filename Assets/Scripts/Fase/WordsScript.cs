@@ -27,7 +27,6 @@ public class WordsScript : MonoBehaviour
     // Instanciando objeto grid
     public Grid grid;
 
-
     float startTime;
     float journeyLength;
     Vector3 comeco;
@@ -112,7 +111,6 @@ public class WordsScript : MonoBehaviour
         }
         tamanhoAntigo = atual.Portugues.Length;
         ColliderSizeUpdate();
-
 
         startTime = Time.time;
         comeco = IA.transform.position;
