@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class menuScript : MonoBehaviour
 {
+    SavedGame saved;
 
     public void loadScene(string scene)
     {
@@ -30,5 +31,15 @@ public class menuScript : MonoBehaviour
     public void Exit()
     {
         Application.Quit();
+    }
+
+    // Recebe o valor selecionado (FACIL ou DIFCIL) do dropdown do menu
+    public void ChooseDifficulty(int value_dropdown)
+    {   
+        saved = SavedGame.Load();
+        saved.difficulty = value_dropdown;
+
+        // Salva a dificuldade escolhida pelo usuario no arquivo inter-cenas (JSON)
+        saved.Save();
     }
 }
