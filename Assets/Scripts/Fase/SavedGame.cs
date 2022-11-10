@@ -8,10 +8,12 @@ using UnityEngine;
 public class SavedGame
 {
     public List<string> words;
+    public int difficulty;
 
     public SavedGame()
     {
         words = new List<string>();
+        difficulty = 0;
     }
 
     public static SavedGame Load()

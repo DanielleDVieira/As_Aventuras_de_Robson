@@ -45,6 +45,9 @@ public class WordsScript : MonoBehaviour
     int posLetraAtual = 0;
     // Tamanho antigo do Objeto que contém todos os prefabs
     int tamanhoAntigo;
+    
+    // Arquivo contendo dados entre-cenas (util apenas o nivel de dificuldade)
+    SavedGame save;
 
     // Start is called before the first frame update
     void Start()
@@ -74,6 +77,9 @@ public class WordsScript : MonoBehaviour
 
         // Lista com as posições das letras no mundo da palavra em portugues
         List<Vector3> posicaoAleatoriaLetras = new List<Vector3>();
+
+        // Buscando dados salvos no arquivo (passando entre as cenas). Obs.: isso eh util apenas para o nivel de diff
+        save = SavedGame.Load();
 
         // Iterando por todas as letras da tradução da palavra
         // E instanciando um prefab para cada letra
@@ -117,7 +123,12 @@ public class WordsScript : MonoBehaviour
         GameObject[] gObjects = GameObject.FindGameObjectsWithTag("Letra");
         journeyLength = Vector3.Distance(comeco, gObjects[0].transform.position);
 
-        menoresCaminhos = PathFinding.buscaLargura(comeco, gObjects[0].transform.position, grid);
+        if(save.difficulty == 0){ // FACIL -> Busca em Largura
+            menoresCaminhos = PathFinding.buscaLargura(comeco, gObjects[0].transform.position, grid);
+        }else if(save.difficulty == 1){ // DIFICIL -> A*
+            menoresCaminhos = PathFinding.aEst(comeco, gObjects[0].transform.position, grid);
+        }
+        
         playerMovement = player.transform.position;
     }
 
@@ -151,7 +162,13 @@ public class WordsScript : MonoBehaviour
                     startTime = Time.time;
                     comeco = IA.transform.position;
 
-                    menoresCaminhos = PathFinding.buscaLargura(comeco, gObjects[0].transform.position, grid);
+                    if(save.difficulty == 0){
+                        menoresCaminhos = PathFinding.buscaLargura(comeco, gObjects[0].transform.position, grid);
+                        Debug.Log("NOVA --- FACIL");
+                    }else if(save.difficulty == 1){
+                        menoresCaminhos = PathFinding.aEst(comeco, gObjects[0].transform.position, grid);
+                        Debug.Log("BEGIN --- FACIL");
+                    }
                     journeyLength = Vector3.Distance(comeco, gObjects[0].transform.position);
                     
                 }
@@ -173,7 +190,12 @@ public class WordsScript : MonoBehaviour
                 Vector3 player = posRobson();
                 if(player != playerMovement){
                     playerMovement = player;
-                    menoresCaminhos = PathFinding.buscaLargura(comeco, player, grid);
+
+                    if(save.difficulty == 0){
+                        menoresCaminhos = PathFinding.buscaLargura(comeco, player, grid);
+                    }else if(save.difficulty == 1){
+                        menoresCaminhos = PathFinding.aEst(comeco, gObjects[0].transform.position, grid);
+                    }
                     journeyLength = Vector3.Distance(comeco, player);
                 } else {
                     pos = menoresCaminhos.First();
