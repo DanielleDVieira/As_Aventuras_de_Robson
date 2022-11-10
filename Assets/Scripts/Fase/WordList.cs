@@ -24,6 +24,8 @@ public class WordList
     // Carregar as palavras do arquivo de registro para a memória.
     public void Load()
     {
+        saved = SavedGame.Load();
+
         var lines = new StreamReader(dataPath + "/Words.csv").ReadToEnd().TrimEnd().Split("\n");
 
         if (saved.words.Count >= lines.Count() - 1)
