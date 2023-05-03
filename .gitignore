@@ -60,3 +60,5 @@ crashlytics-build.properties
 
 UserSettings/
 Publish/
+
+Saved.json*
